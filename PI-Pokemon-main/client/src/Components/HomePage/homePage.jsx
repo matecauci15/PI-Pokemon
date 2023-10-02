@@ -1,4 +1,4 @@
-import NavBar from '../NavBar/NavBar'
+import NavBar from '../NavBar/NavBar';
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -8,101 +8,86 @@ import './HomePage.css';
 const URL = "https://pokeapi.co/api/v2/pokemon?limit=200";
 
 const HomePage = () => {
-    const [pokemons, setPokemons] = useState([]);
-    // Here I create two states first for the current page, set to 1. Second I set pokemon per page to 8.
-    const [currentPage, setCurrentPage] = useState(1);
-    const [pokemonsPerPage] = useState(12);
-  
+  const [pokemons, setPokemons] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pokemonsPerPage] = useState(12);
+  const [pokemonDetails, setPokemonDetails] = useState({});
+
   useEffect(() => {
-      const fetchPokemons = async () => {
-          try {
-              const { data } = await axios.get(`${URL}`);
+    const fetchPokemons = async () => {
+      try {
+        const { data } = await axios.get(`${URL}`);
+        setPokemons(data.results);
 
-              setPokemons(data.results);
-            } catch (error) {
-                console.error("Error fetching pokemons:", error);
-            }
-        };
-        fetchPokemons();
-        //UseEffect runs when component updates or didmount so
-        // Empty array for stopping out the effect. If I want to run when some specific change you can use dependencies
-    }, []);
-    
-    //   const truncer = (string, n) => {
-    //         return string?.length > n ? string.substr(0, n - 1) + '...' : string;
-    //       };
-        
-        // Get current pokemons
-          const indexOfLastPokemon = currentPage * pokemonsPerPage;
-          const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
-          const currentPokemons = pokemons.slice(indexOfFirstPokemon, indexOfLastPokemon);
-        
-    const paginate = (pageNumber) => {
-        setCurrentPage(pageNumber);
+        const detailsPromises = data.results.map(async (pokemon) => {
+          const { data: details } = await axios.get(pokemon.url);
+          return { [pokemon.name]: details };
+        });
+
+        const pokemonDetailsData = await Promise.all(detailsPromises);
+
+        const detailsObject = Object.assign({}, ...pokemonDetailsData);
+        setPokemonDetails(detailsObject);
+      } catch (error) {
+        console.error("Error fetching pokemons:", error);
+      }
     };
+    fetchPokemons();
+  }, []);
 
-    const getPokemonImageURL = (pokemon) => {
-            // Construir la URL de la imagen usando el ID del Pokémon.
-            // Esta function toma un objeto Pokémon de la lista y extrae su ID de la URL 
-            // para construir la URL de la imagen adecuada. Esto debería mostrar las imágenes 
-            // de los Pokémon en tu página de inicio.
-            const pokemonId = pokemon.url.split('/').filter(Boolean).pop();
-            return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
-    };            
+  const getPokemonImageURL = (pokemon) => {
+    const pokemonId = pokemon.url.split('/').filter(Boolean).pop();
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
+  };
 
-    return (
-        <div>
-          
-        <NavBar />
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
+  const indexOfLastPokemon = currentPage * pokemonsPerPage;
+  const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
+  const currentPokemons = pokemons.slice(indexOfFirstPokemon, indexOfLastPokemon);
+
+  return (
+    <div>
+      <NavBar />
       <div className="home_general">
-
-        <div className="title_landing">
-          {/* <h1>PI Pokemons Henry</h1> */}
-        </div>
-
-        {
-            <div className="home_cards">
-            {currentPokemons.map((pokemon) => (
-                <div className="article" key={pokemon.id}>
-                <Link
-                  to={`/${pokemon.name}`}
-                  className="detail_links"
-                  key={pokemon.id}
-                  >
-                  <img
-                    className="pokemon_image"
-                    src={getPokemonImageURL(pokemon)}
-                    alt={pokemon.name}
-                    />
-                  <h2>{pokemon.name}</h2>
-                  <p>{pokemon.id} </p>
-                  {/* <p>{truncer(dog?.temperament, 30)}</p> */}
-                </Link>
-              </div>
-            ))}
-
-            <div className="pagination-container">
-              {Array.from({
-                  length: Math.ceil(pokemons.length / pokemonsPerPage),
-                }).map((_, index) => (
-                    <button
-                    key={index}
-                    onClick={() => paginate(index + 1)}
-                    className={`pagination-button ${
-                        index + 1 === currentPage ? "active" : ""
-                    }`}
-                    >
-                  {index + 1}
-                </button>
-              ))}
+        <div className="title_landing"></div>
+        <div className="home_cards">
+          {currentPokemons.map((pokemon) => (
+            <div className="article" key={pokemon.name}>
+              <Link to={`/${pokemon.name}`} className="detail_links">
+                <img
+                  className="pokemon_image"
+                  src={getPokemonImageURL(pokemon)}
+                  alt={pokemon.name}
+                />
+                <h2>{pokemon.name}</h2>
+                {pokemonDetails[pokemon.name] && (
+                  <p>{pokemonDetails[pokemon.name].types.map((type) => type.type.name).join(" | ")}</p>
+                )}
+              </Link>
             </div>
+          ))}
+          <div className="pagination-container">
+            {Array.from({
+              length: Math.ceil(pokemons.length / pokemonsPerPage),
+            }).map((_, index) => (
+              <button
+                key={index}
+                onClick={() => paginate(index + 1)}
+                className={`pagination-button ${
+                  index + 1 === currentPage ? "active" : ""
+                }`}
+              >
+                {index + 1}
+              </button>
+            ))}
           </div>
-        }
-        {/* <Footer /> */}
-      </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default HomePage;
