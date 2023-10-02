@@ -1,0 +1,85 @@
+.landing_general{
+    background: url('https://i.pinimg.com/originals/b8/83/fc/b883fc84b57235e6fe57f409716ae68d.gif') no-repeat;
+    background-size: cover;
+    position: relative;
+    /* color: rgb(222, 177, 93); */
+    color: white;
+    height: 100vh;
+    overflow: hidden;
+}
+  
+.landingPage > img {
+    width: 400px;
+    /* display: flex; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* text-align: center; */
+    margin-top: 100px;
+    margin-left: 35%;
+  }
+
+  /* .tenis_ball{ */
+    /* width: 1000px; */
+    /* border-radius: 100%; */
+  /* } */
+  
+/* .parragraph > img{ 
+    width: 300px;
+    text-decoration: underline;
+    margin-top: 10%; 
+    margin-left: 40%;
+    font-weight: 400;
+    font-size: 1.8rem;
+    font-style: italic;
+    color: white; 
+    width: 50%;
+} */
+
+.landing_button{
+    color: white;
+    font-size: 2rem;
+    margin-left: 36%;
+}
+  
+.button_landing{
+    background-image: url("https://w7.pngwing.com/pngs/223/715/png-transparent-poke-ball-thumbnail.png") ;
+    background-position: center;
+    background-size: 108px; /* Ajusta el tamaño de la imagen para cubrir el botón */
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    border-radius: 50%;
+    font-weight: bold;
+    font-style: italic;
+    border: none;
+    margin-left: 150px;
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    cursor: pointer;
+}
+  
+button:hover {
+    transform: scale(1.14); /* Aumenta el tamaño del botón al pasar el mouse */
+    opacity: 0.6; /* Reduce la opacidad del botón al pasar el mouse */
+}
+  
+  
+.logos {
+    position: absolute;
+    bottom: 40px;
+    left: 100px;
+    width: 60px;
+    background-color: aliceblue;
+    border-radius: 15px;
+}
+  
+.logos img {
+    border-radius: 40%; 
+    width: 60px;
+}
+  
+  
+#linkedin-logo {
+    margin-left: 80px;
+}
+
+    /* https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbUkwPgwWnw-JUsuOfQGdXbznJ4EyrpYLdxTCl_GOp4ZVE6wsuUykHOWS4ouD2VGq9Hlc&usqp=CAU */
