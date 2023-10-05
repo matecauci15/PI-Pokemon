@@ -1,1 +1,47 @@
- 
+ .form_general{
+    background: url('https://4.bp.blogspot.com/-t2hhBSfzcnM/WRxC0etTDAI/AAAAAAAACIs/YF6m2turlv4DJILAx7Je8lE7Wu8YTtYRwCLcB/s1600/profesor%2Boak%2Bgif.gif');
+    background-repeat: no-repeat;
+    background-size  : cover;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    /* background-color: red; */
+ }
+
+ .pokemon_form{
+    border: 2px solid #111;
+    /* height: 80vh; */
+    width: 100vh;
+    background-color: rgba(172, 172, 0, 0.7);
+    display: flex;
+    margin: 45vh;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    /* overflow: hidden; */
+ }
+ .pokemon_form > input{
+    margin: 13px;
+    padding: 5px;
+    /* text-align: center; */
+    border-radius: 5px; 
+ }
+
+ .pokemon_form > .type_options{
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    border-radius: 5px;
+    margin: 10px;
+ }
+
+ /* https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.wikidex.net%2Fwiki%2FProfesor_Oak&psig=AOvVaw0uunE59DT6INtIdO2m7RkP&ust=1696455581015000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCJDiq4rs2oEDFQAAAAAdAAAAABAE */
+
+ /* https://images.hive.blog/0x0/https://h93805.files.wordpress.com/2017/01/flaming_charizard.gif */
+ /* https://static.wikia.nocookie.net/pokemon/images/e/ed/Charizard_SS.gif/revision/latest/scale-to-width-down/250?cb=20200107232735 */
+ /* https://static.wikia.nocookie.net/pokemon/images/e/e1/Charizard_Shiny_SS.gif/revision/latest/scale-to-width-down/250?cb=20200107232825 */
+ /* https://images.wikidexcdn.net/mwuploads/wikidex/f/f8/latest/20180820010545/Profesor_Oak_LGPE.png */

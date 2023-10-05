@@ -1,4 +1,5 @@
 import './App.css';
+// import Card from './Components/Card/Card';
 import DetailPage from './Components/DetailPage/DetailPage';
 import Form from './Components/Form/Form';
 import HomePage from './Components/HomePage/homePage';
@@ -16,6 +17,7 @@ function App() {
           <Route path="/homePage" element={<HomePage />} />
           <Route path='/form' element={<Form />} />
           <Route path='/:name' element={<DetailPage/>}/>
+          {/* <Route path='/card' element={<Card/>}/> */}
         </Routes> 
       </BrowserRouter>
     </div>

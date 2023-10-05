@@ -40,7 +40,7 @@ const getPokemon = async (name) => {
     const apiResponse = await apiPokemons()
     const pokemonsApi = apiResponse.results
     
-    const allPokemons = [...pokemonsApi, ...pokemonDb]
+    const allPokemons = [...pokemonDb, ...pokemonsApi]
 
     if(name){
     const pokemonByName = allPokemons.filter((pokemon) => pokemon.name && pokemon.name.toLowerCase().includes(name.toLowerCase()) )

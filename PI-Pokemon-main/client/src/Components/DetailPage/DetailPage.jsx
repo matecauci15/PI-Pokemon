@@ -6,7 +6,7 @@ import React, { useState, useEffect } from "react"
 const Detail = () => {
     const [pokemon, setPokemon] = useState(null);
     const { name } = useParams();
-    console.log(pokemon?.types);
+
     
     useEffect(() => {
         const fetchSinglePokemonData = async () => {
@@ -22,7 +22,11 @@ const Detail = () => {
     }, [name]);
     
     if (!pokemon) {
-        return <div><img src="" alt="" />Loading...</div>;
+        return <div className='loading'>
+          <img src="https://images.hive.blog/0x0/https://h93805.files.wordpress.com/2017/01/flaming_charizard.gif" 
+          alt="" />
+          Loading...
+        </div>;
     }
     
     // Construir la URL del GIF animado usando el ID del Pokémon

@@ -3,15 +3,25 @@ import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './HomePage.css';
+import getColorForType from '../../utils/colors'
+import { useDispatch, useSelector } from 'react-redux';
+import { getPokemon } from '../../Redux/actions';
 // import Footer from '../Footer/Footer';
 
 const URL = "https://pokeapi.co/api/v2/pokemon?limit=200";
 
 const HomePage = () => {
+  const dispatch = useDispatch()
+  // const allPokemons = useSelector(state => state.allPokemons)
+  
   const [pokemons, setPokemons] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pokemonsPerPage] = useState(12);
   const [pokemonDetails, setPokemonDetails] = useState({});
+
+  useEffect(() => {
+    dispatch(getPokemon())
+  },[dispatch])
 
   useEffect(() => {
     const fetchPokemons = async () => {
@@ -40,6 +50,7 @@ const HomePage = () => {
     return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
   };
 
+
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -64,7 +75,15 @@ const HomePage = () => {
                 />
                 <h2>{pokemon.name}</h2>
                 {pokemonDetails[pokemon.name] && (
-                  <p>{pokemonDetails[pokemon.name].types.map((type) => type.type.name).join(" | ")}</p>
+                  <p>
+                    {
+                    pokemonDetails[pokemon.name].types.map((type) => (
+                    <span className='types' key={type.type.name} style={{ backgroundColor: getColorForType(type.type.name) }}>
+                      {type.type.name}
+                    </span>
+                  ))
+                  }
+                  </p>
                 )}
               </Link>
             </div>

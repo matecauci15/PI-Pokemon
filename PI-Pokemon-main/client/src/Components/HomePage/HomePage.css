@@ -13,7 +13,8 @@
     flex-wrap: wrap;
     background-color: rgba(0, 0, 0, 0.65);
     overflow-x: auto;
-    justify-content: space-around;
+    justify-content: center;
+    /* justify-content: space-around; */
     text-align: center;
     /* box-shadow: 2px 2px 8px 8px rgba(15, 13, 13); */
     /* margin: 50px; */
@@ -23,17 +24,17 @@
 }
 
 .home_cards > .article {
-    position: relative;
-    margin: 30px 20px 20px 30px;
-    width: 300px;
-    height: 300px;
+    /* position: relative; */
+    margin: 30px 20px 20px 30px;    
+    width: 350px;
+    height: 250px;
     border: 2px solid rgba(160, 160, 160, 0.8);
     box-shadow: 12px 12px 5px 6px rgba(15, 13, 13);
     background: linear-gradient(300deg, #ff69b4, #8a2be2, #1e90ff);
     border-radius: 25px;
     color: #999;
     transition: transform 0.3s ease; /* Agrega una transición de transformación */
-    /* left: 25px; */
+
 }
 
 .article:hover {
@@ -41,20 +42,25 @@
 }
 
 .pokemon_image{
-    width: 200px;
-    height: 190px;
-    margin-top: 20px;
+    width: 140px;
+    height: 110px;
+
+    /* margin-top: 20px; */
 }
 .article h2 {
-    vertical-align: middle;
+    margin-top: -1px;
+    color: rgb(255, 255, 190);
+    /* background-color: red; */
+    /* background-color: red; */
 }
 
-.title_landing > h1{
+/* .title_landing > h1{
     text-align: center;
     font-size: 3rem;
     color: red;
     font-family: monospace;
-}
+} */
+
 
 .pagination-container {
     overflow: hidden;
@@ -88,5 +94,13 @@
     color: #fff;
 }
 
-
-
+.types{
+    margin: 3px;
+    padding: 8px 15px;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 60px;
+    margin-left: 37%;
+    justify-content: center;
+    border-radius: 10px;
+}

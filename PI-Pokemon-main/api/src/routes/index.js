@@ -12,7 +12,7 @@ const router = Router();
 
 router.post('/pokemons', createPokemonHandler);
 router.get('/pokemons', getPokemonHandler);
-router.get('/pokemons/name', getPokemonHandler);
+router.get('/pokemons/:name', getPokemonHandler);
 router.get('/types', getTypesHandler);
 router.get('/pokemons/:id', getPokemonIdHandler);
 router.delete('/delete/:id', deletePokemonByIdHandler);
