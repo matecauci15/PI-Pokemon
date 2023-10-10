@@ -1,5 +1,5 @@
 import axios from "axios"
-import { GET_POKEMONS, GET_TYPES } from "./actionsTypes";
+import { GET_POKEMONS, GET_TYPES, GET_POKEMON_NAME, ORDER_BY_NAME, FILTER_BY_ORIGIN, FILTER_BY_TYPE } from "./actionsTypes";
 
 
 // state pq quiero que reciba la info del form
@@ -31,13 +31,53 @@ export function getPokemon(){
 export function getTypes(){
     return async (dispatch)=>{
         try {
-            const {data} = await axios.get('http://localhost:3001/types')
+            const response = await axios.get('http://localhost:3001/types')
             dispatch({
                 type: GET_TYPES,
-                payload: data
+                payload: response.data
             })
         } catch (error) {
             console.log(error.message);           
         }
+    }
+}
+
+export function getPokemonByName(name){
+    return async (dispatch) => {
+        try {
+            const response = await axios.get(`http://localhost:3001/pokemons/?name=${name}`)
+            dispatch({
+                type: GET_POKEMON_NAME,
+                payload: response.data
+            })
+        }catch(error){
+            console.log(error.message);
+        }
+    }
+}
+export function orderByName(order){
+    return async (dispatch) => {
+        try {
+            // const response = await axios.get(`http://localhost:3001/pokemons/?name=${name}`)
+            dispatch({
+                type: ORDER_BY_NAME,
+                payload: order
+            })
+        }catch(error){
+            console.log(error.message);
+        }
+    }
+}
+export const filterByType = (type) => {
+    return {
+      type: FILTER_BY_TYPE,
+      payload: type
+    };
+  };
+
+  export const filterByOrigin = (origin)=>{
+    return{
+        type: FILTER_BY_ORIGIN,
+        payload: origin
     }
 }

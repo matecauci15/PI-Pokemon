@@ -1,72 +1,101 @@
-import React, { useEffect, useState} from 'react'
-import './NavBar.css'
-import { Link  } from 'react-router-dom'
-// import { FaSearch } from 'react-icons/fa'
+// import React, { useEffect, useState} from 'react'
+// import './NavBar.css'
+// import { Link  } from 'react-router-dom'
 
-const Nav = () => {
-    const [show, handleShow] = useState(false) 
-    // const [breeds, setBreeds] = useState(initialBreeds)
+// const Nav = ({handleChange, handleSubmit}) => {
+//     const [show, handleShow] = useState(false) 
 
 
-    const transitionNavBar = ()=> {
-        if(window.scrollY > 100){
-            handleShow(true);
-        }else{
-            handleShow(false);
-        }
-    };
+//     // const transitionNavBar = ()=> {
+//     //     if(window.scrollY > 100){
+//     //         handleShow(true);
+//     //     }else{
+//     //         handleShow(false);
+//     //     }
+//     // };
 
-    useEffect(() => {
-        window.addEventListener('scroll', transitionNavBar)
-        return () => window.removeEventListener('scroll', transitionNavBar)
-    }, [])
+//     // useEffect(() => {
+//     //     window.addEventListener('scroll', transitionNavBar)
+//     //     return () => window.removeEventListener('scroll', transitionNavBar)
+//     // }, [])
 
-    const handleClick = () => {
-        window.scrollTo(0, 0) 
-    }    
+//     // const handleClick = () => {
+//     //     window.scrollTo(0, 0) 
+//     // }    
     
-    // const onSearch = async (id) => {
-    //     try {
-    //        const { data } = await axios(`https://api.thedogapi.com/v1/breeds`);
+//     // const onSearch = async (id) => {
+//     //     try {
+//     //        const { data } = await axios(`https://api.thedogapi.com/v1/breeds`);
            
-    //        if(data.name) {
-    //           setCharacters((oldChars) => [...oldChars, data]);
-    //        };
+//     //        if(data.name) {
+//     //           setCharacters((oldChars) => [...oldChars, data]);
+//     //        };
   
-    //     } catch (error) {
-    //        alert('¡No hay personajes con este ID!');
-    //     }
-    //  };
+//     //     } catch (error) {
+//     //        alert('¡No hay personajes con este ID!');
+//     //     }
+//     //  };
 
-    return (
-        <div className={`nav ${show && 'nav_black'}`}>
-            {/* <div className="nav_content"> */}
-            <img
-            onClick={handleClick} 
-            className='nav_logo'
-            src="https://img.lovepik.com/element/45007/8040.png_860.png" alt="Perrito inicio" />
-            {/* </div> */}
-                <div className='nav_links'>
-                        <Link className='nav_link_to' to='/'> Inicio</Link>
-                        <Link className='nav_link_to' to='/createDog'>Create Dog</Link>
-                        <Link className='nav_link_to' to='/form'>Create</Link>
-                </div> 
-            <div>
-            {/* <form className='search_form'> */}
-                {/* <FaSearch/> */}
-                <input className='input_search' type="text" name="search" placeholder='Search by breer or ID' />
-                <input type="submit" />
-                {/* <select className="inputs_select">
-                    {breeds.map(breed => (
-                        <>
-                        <option value={breed.id} key={breed.id}>{breed.name}</option>
-                        </>
-                        ))}
-                    </select> */}
-            {/* </form> */}
-            </div>
+//     return (
+//         <div className={`nav ${show && 'nav_black'}`}>
+//             {/* <div className="nav_content"> */}
+//             <Link to="/homePage/">
+//             <img
+//             // onClick={handleClick} 
+//             className='nav_logo'
+//             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5uaj5DOEA_dE7pOGFOtlFWjSx7REGmeKbWA&usqp=CAU" alt="Perrito inicio" />
+//             </Link>
+//             {/* </div> */}
+//                 <div className='nav_links'>
+//                         <Link className='nav_link_to' to='/'> Inicio</Link>
+//                         <Link className='nav_link_to' to='/form'>Create</Link>
+//                 </div> 
+//             <div>
+//             <form onChange={handleChange} className='search_form'>
+//                 <input className='input_search' type="search" placeholder='Search by name or Id' />
+//                 <button type="submit" onClick={handleSubmit}>Search</button>
+
+//             </form>
+//             </div>
+//     </div>
+//     );
+// }
+
+// export default Nav
+
+import React, { useState } from 'react';
+import './NavBar.css';
+import { Link } from 'react-router-dom';
+
+const Nav = ({ handleChange, handleSubmit }) => {
+  const [show, handleShow] = useState(false);
+
+  return (
+    <div className={`nav ${show && 'nav_black'}`}>
+      <Link to="/homePage/">
+        <img
+          className='nav_logo'
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5uaj5DOEA_dE7pOGFOtlFWjSx7REGmeKbWA&usqp=CAU"
+          alt="Perrito inicio"
+        />
+      </Link>
+      <div className='nav_links'>
+        <Link className='nav_link_to' to='/'> Inicio</Link>
+        <Link className='nav_link_to' to='/form'>Create</Link>
+      </div>
+      <div>
+        <form onSubmit={handleSubmit} className='search_form'>
+          <input
+            className='input_search'
+            type="search"
+            placeholder='Search by name or Id'
+            onChange={handleChange}
+          />
+          <button className='submit_button' type="submit">Search</button>
+        </form>
+      </div>
     </div>
-    );
+  );
 }
 
-export default Nav
+export default Nav;

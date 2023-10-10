@@ -1,0 +1,7 @@
+.all_cards{
+    /* background-color: red; */
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    align-items: center;
+}

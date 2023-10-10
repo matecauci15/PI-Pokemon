@@ -1,99 +1,136 @@
-const {Pokemon} = require("../db")
-const axios = require("axios")
- 
-const createPokemon = async(
-    name,
-    image,
-    life,
-    attack,
-    defense,
-    speed,
-    height,
-    weight
-) => {
-    // want to use findOrCreate but some api actualizations are needed
-    const newPokemon = await Pokemon.create({
-        name,
-        image,
-        life,
-        attack,
-        defense,
-        speed,
-        height,
-        weight
-    })
-    return newPokemon;
-}
 
-const dbPokemons = async () => {
-    const pokemonsDb = await Pokemon.findAll()
-    return pokemonsDb;
-    // console.log(pokemonsDb);
-}
 
-const apiPokemons = async () => {
-    const { data } = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=200");
-    return data;
-}
-const getPokemon = async (name) => {
-    const pokemonDb = await dbPokemons()
-    const apiResponse = await apiPokemons()
-    const pokemonsApi = apiResponse.results
+const axios = require('axios');
+
+const {Pokemon, Type} = require('../db')
+
+
+const apiPokemons = async()=>{
+  const  apiResponse =  (await axios.get('https://pokeapi.co/api/v2/pokemon?limit=200')).data.results
+  
+  // Promise.all = Es un iterador de promesas que resuelve las promesas y devuelve una promesa
+  const pokeapi = await Promise.all(apiResponse.map(async (poke)=>{
+    let pokemon = await axios.get(poke.url);
     
-    const allPokemons = [...pokemonDb, ...pokemonsApi]
-
-    if(name){
-    const pokemonByName = allPokemons.filter((pokemon) => pokemon.name && pokemon.name.toLowerCase().includes(name.toLowerCase()) )
-    return pokemonByName
+    return {
+      id: pokemon.data.id,
+      image: pokemon.data.sprites.other.home.front_default,
+      name: pokemon.data.name,
+      hp: pokemon.data.stats[0].base_stat,
+      attack: pokemon.data.stats[1].base_stat,
+      defense: pokemon.data.stats[2].base_stat,
+      speed: pokemon.data.stats[5].base_stat,
+      height: pokemon.data.height,
+      weight: pokemon.data.weight,
+      types: pokemon.data.types.map((tipo) => tipo.type.name),
     }
-    return allPokemons;
+  }))
+  
+  return pokeapi
+};
+
+const dbPokemons = async()=>{
+  const pokemonsDb = await Pokemon.findAll({
+    include: {
+      model: Type,
+      attributes: ['name'],
+      through: {
+        attributes: [],
+      },
+    },
+  });
+  
+  const pokemons = pokemonsDb?.map( pokemon => {
+    return {
+      id: pokemon.id,
+      image: pokemon.image,
+      name: pokemon.name,
+      hp: pokemon.hp,
+      attack: pokemon.attack,
+      defense: pokemon.defense,
+      speed: pokemon.speed,
+      height: pokemon.height,
+      weight: pokemon.weight,
+      types: pokemon.types.map( types => types.name),
+    };
+  });
+  return pokemons;   
+  
+};
+
+const getAllPokemons = async () => {
+  const pokeDb = await dbPokemons(); // Obtener datos de la base de datos
+  const pokeApi = await apiPokemons(); // Obtener datos de la API
+  
+  // Realiza la unión de datos, por ejemplo, fusiona los arrays o realiza alguna lógica específica según tus necesidades
+  const allPokemons = [ ...pokeApi, ...pokeDb];
+  
+  return allPokemons;
+};
+
+const pokemonsById = async(id)=>{
+  const pokeId = (await getAllPokemons()).find((pokemon)=> pokemon.id == id);
+  
+  if(!pokeId) return ("Couldn't find any pokemon with the specified id")
+  
+  return pokeId
 }
 
-// const getPokemonId = async (id) => {
-//     if(isNaN(id)){
-//         const pokemonsId = await Pokemon.findByPk(id)
-//         return pokemonsId; 
-//     }
-//     const apiResponse = (await axios.get("https://pokeapi.co/api/v2/pokemon?limit=1292")).data.results;
-//     const pokeId = apiResponse.find((pokemon) => pokemon.id === +id)
-//     console.log(pokeId);
-//     return pokeId
-// }   
-const getPokemonId = async (id) => {
-    if (isNaN(id)) {
-      const pokemonsId = await Pokemon.findByPk(id);
-      return pokemonsId; 
-    }
+const pokemonsByName = async(name)=>{
+  const pokemons = await getAllPokemons();
   
-    const apiResponse = (await axios.get("https://pokeapi.co/api/v2/pokemon?limit=200")).data.results;
-    const pokeId = apiResponse.find((pokemon) => pokemon.url.endsWith(`/${id}/`));
-    if(!pokeId) return ("Couldn't find any pokemon with the specified id");
-    // console.log(pokeId);
-    return pokeId;
-  }
+  const pokeName = pokemons.filter(poke => poke.name.toLowerCase().includes(name.toLowerCase()));
+  if(!pokeName.length) return ("Couldn't find any pokemon with that name")
   
-// const getPokemonId = async (id) => {
-//     if (isNaN(id)) {
-//       const pokemonsId = await Pokemon.findByPk(id);
-//       return pokemonsId; 
-//     }
+  return pokeName
   
-//     const apiResponse = (await axios.get("https://pokeapi.co/api/v2/pokemon?limit=1292")).data.results;
-//     const pokeId = apiResponse.find((pokemon) => {
-//       const pokemonId = pokemon.url.split('/').slice(-2, -1)[0];
-//       return parseInt(pokemonId) === parseInt(id);
-//     });
-  
-//     console.log(pokeId);
-//     return pokeId;
-//   }
-  
+}
 const deletePokemonById = async (id) => {
-    const pokemon = await Pokemon.findOne({where: {id: id}})
+    const pokemon = await Pokemon.findOne({where: {id: id}})    
         if(pokemon){
-            await Pokemon.destroy({where: {id:id}})
+            await Pokemon.destroy({where: {id:id}})    
             return 'El pokemon fue eliminado con exito'
     }
 }
 
-module.exports = {createPokemon, getPokemon, getPokemonId, deletePokemonById}
+const pokemonCreate = async (
+  name,
+  image, 
+  hp, 
+  attack, 
+  defense, 
+  speed, 
+  height, 
+  weight, 
+  types) => {
+
+        const newPokemon = await Pokemon.create({ 
+        name,
+        image, 
+        hp, 
+        attack, 
+        defense, 
+        speed, 
+        height, 
+        weight
+      });
+    
+        types?.forEach(async (type)=>{
+            let typesDB = await Type.findAll({where: 
+            {
+               name : type
+            }});
+
+            await newPokemon.addTypes(typesDB);
+        });
+
+        return newPokemon
+};
+
+module.exports = {
+    getAllPokemons,
+    pokemonsById,
+    pokemonsByName,
+    pokemonCreate,
+    deletePokemonById
+}

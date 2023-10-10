@@ -1,52 +1,82 @@
-const {createPokemon, getPokemon, getPokemonId, deletePokemonById} = require("../Controllers/pokemonController")
- 
-const createPokemonHandler = async (req, res) => {
+// const getPokemonIdHandler = async(req, res)=>{
+//     try {
+//         const {id} = req.params;
+//         const pokemonID = await getPokemonsById(id);
+//         return res.status(200).json(pokemonID);
+//     } catch (error) {
+//         console.error('Error en getIdPokemon(handlers):', error);
+//         return res.status(500).json({error: 'No existe un pokemon con el ID proporcionado'});
+//     }
+// };
+// module.exports = {createPokemonHandler, getPokemonHandler, getPokemonIdHandler};
+
+const {getAllPokemons, pokemonCreate, pokemonsById, pokemonsByName, deletePokemonById} = require('../Controllers/pokemonController')
+
+const createPokemon = async(req, res)=>{
     try {
-        const {        
+        const {
             name,
-            image,
-            life,
-            attack,
-            defense,
-            speed,
-            height,
-            weight,
-            type
-        } = req.body;
-        const response = await createPokemon(name,image,life,attack,defense,speed,height,weight, type)
-        res.status(201).json(response)
+            image, 
+            hp, 
+            attack, 
+            defense, 
+            speed, 
+            height, 
+            weight,  
+            types 
+        } = req.body
+        const pokemonPost = await pokemonCreate(name,image, hp, attack, defense, speed, height, weight, types);
+        
+        return res.status(200).json(pokemonPost);
+        
     } catch (error) {
-        return res.status(400).send(error.message)  
+        return res.status(400).json(error .message );
     }
 }
 
-const getPokemonHandler = async (req, res) => {
+const getPokemons = async(req, res)=>{
     try {
-        const {name} = req.query
-        const response = await getPokemon(name);
-        res.status(200).json(response)
+        const {name} = req.query;
+        
+        if(name){
+            const response = await pokemonsByName(name);
+            return res.status(200).json(response);
+        }
+        const allPokes = await getAllPokemons()
+        return res.status(200).json(allPokes);
     } catch (error) {
-        res.status(400).send(error.message)
+        return res.status(400).json(error.message)
     }
-}
-const getPokemonIdHandler = async (req, res) => {
-    try {
-        const {id} = req.params
-        const response = await getPokemonId(id)
-        res.status(200).json(response) 
-    } catch (error) {
-        return res.status(400).send(error.message)
-    }
-}
-const deletePokemonByIdHandler = async (req, res) => {
-    try {
-        const { id } = req.params
-        const response = await deletePokemonById(id)
-        res.status(200).json(response)
-    } catch (error) {
-        res.status(400).send(error.message)
+};
 
+            
+const getPokemonById = async(req, res)=>{
+    try {
+        const {id} = req.params;
+        const pokeId = await pokemonsById(id);
+        return res.status(200).json(pokeId);
+    } catch (error) {
+        return res.status(500).json(error.message, {error: 'No existe un pokemon con el ID proporcionado'});
     }
-}
+};
+            
+const deletePokemon = async (req, res) => {
+        try {
+            const { id } = req.params
+            const response = await deletePokemonById(id)
+            return res.status(200).json(response)
+    } catch (error) {
+                    res.status(400).send(error.message)
+                        
+    }
+ }
+                        
+            
 
-module.exports = {createPokemonHandler, getPokemonHandler, getPokemonIdHandler, deletePokemonByIdHandler};
+module.exports = {
+    getPokemons,
+    getPokemonById,
+    // getNamePokemon,
+    deletePokemon,
+    createPokemon
+}

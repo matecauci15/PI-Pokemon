@@ -25,8 +25,6 @@
 
 // module.exports = {getTypes}
 
-
-
 const { Type } = require("../db")
 const axios = require("axios")
 
@@ -39,9 +37,9 @@ const getTypes = async () => {
         if (data && data.results) {
             const allTypes = data.results.map((type) => type.name);
 
-            allTypes.forEach(async (t) => {
+            allTypes.forEach(async (type) => {
                 await Type.findOrCreate({
-                    where: { name: t }
+                    where: { name: type }
                 })
             });
 

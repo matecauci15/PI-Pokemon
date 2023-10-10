@@ -1,0 +1,177 @@
+ /* .pokemon_form{
+    border: 2px solid #111;
+    width: 100vh;
+    background-color: rgba(172, 172, 0, 0.7);
+    display: flex;
+    margin: 45vh;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+ }
+ .pokemon_form > input{
+    margin: 13px;
+    padding: 5px;
+    border-radius: 5px; 
+ }
+
+ .pokemon_form > .type_options{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    border-radius: 5px;
+    margin: 10px;
+ }  */
+ 
+ .form_general{
+   background: url('https://4.bp.blogspot.com/-t2hhBSfzcnM/WRxC0etTDAI/AAAAAAAACIs/YF6m2turlv4DJILAx7Je8lE7Wu8YTtYRwCLcB/s1600/profesor%2Boak%2Bgif.gif');
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+   height: 105vh;
+  }
+  
+  .form_data {
+    height: 39rem;
+    background: linear-gradient(300deg, #ff69b4, #8a2be2, #1e90ff);
+    position: relative;
+    transition: 0.5s ease-in-out;
+    border-radius: 15px;
+    top: 70px;
+    left: 40%;
+    width: 350px;
+    padding: 30px;
+  }
+  
+  .form_data input::placeholder {
+    color: black;
+  }
+  
+  .form_title {
+    text-align: center;
+    font-weight: 600;
+    font-size: large;
+  }
+  
+  .all_divInputs {
+    display: flex;
+    margin-top: 1rem;
+    transition: 0.5s ease-in-out;
+  }
+  
+  .form_data input {
+    background-color: transparent;
+    margin-bottom: 5px;
+    border: 1px solid black;
+    width: 12rem;
+    padding: 8px;
+  }
+  
+  .button {
+    text-align: end;
+  }
+  
+  .button_submit {
+    cursor: pointer;
+    margin-top: 110px;
+    border-radius: 8px;
+    padding: 8px 3rem;
+    border: none;
+    transition: 0.5s ease-in-out;
+  }
+  /* .linktohome{
+    border-radius: 10px;
+  } */
+  .button_back{
+    border-radius: 5px;
+    margin-left: 60%;
+    margin-top: 5%;
+    /* background-color: rgba(137, 22, 224, 0.685); */
+    background-color: white;
+    border: none;
+    padding: 2px;
+  }
+  
+  /* .disabled {
+    opacity: 0.5; 
+    cursor: not-allowed; 
+  } */
+  
+  .all_errors{
+    color: rgb(255, 255, 255);
+    background-color: #4158D0;
+  }
+  
+ 
+  .divDelete {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 150px;
+  }
+  
+  .typeElegido {
+    padding: 0.2em 0.7em;
+    background-color: red;
+    border-radius: 0.3em;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.5s;
+    font-weight: 400;
+    font-size: 13px;
+    border: 1px solid;
+    font-family: inherit;
+    text-transform: uppercase;
+    color: white;
+    z-index: 1;
+    border-radius: 30px;
+    width: 100px;
+    
+  }
+  
+  .botonX {
+    width: 30px;
+    height: 30px;
+    border: 3px solid linear-gradient(43deg, red 0%, 38%, rgb(64, 227, 248) 100%);;
+    border-radius: 45px;
+    transition: all 0.3s;
+    cursor: pointer;
+    background: white;
+    font-size: 1.2em;
+    font-weight: 550;
+    font-family: "Montserrat", sans-serif;
+  }
+  
+  .botonX:hover {
+    background: linear-gradient(43deg, red 0%, 38%, rgb(64, 227, 248) 100%);;
+    color: white;
+    font-size: 1.5em;
+  }
+  
+  .selectType {
+    width: 100px;
+    height: 30px;
+    border: 1px solid #315cfd;
+    border-radius: 45px;
+    transition: all 0.3s;
+    cursor: pointer;
+    background: white;
+    font-size: 0.9em;
+    font-weight: 300;
+    font-family: "Montserrat", sans-serif;
+    margin-left: 20px;
+    padding-left: 15px;
+  }
+  
+  .fila {
+    display: flex;
+    justify-content: space-between; /* Distribuye los elementos de manera uniforme */
+    align-items: center; /* Alinea verticalmente los elementos al centro */
+  }  
+   /* https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.wikidex.net%2Fwiki%2FProfesor_Oak&psig=AOvVaw0uunE59DT6INtIdO2m7RkP&ust=1696455581015000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCJDiq4rs2oEDFQAAAAAdAAAAABAE */
+  
+   /* https://images.hive.blog/0x0/https://h93805.files.wordpress.com/2017/01/flaming_charizard.gif */
+   /* https://static.wikia.nocookie.net/pokemon/images/e/ed/Charizard_SS.gif/revision/latest/scale-to-width-down/250?cb=20200107232735 */
+   /* https://static.wikia.nocookie.net/pokemon/images/e/e1/Charizard_Shiny_SS.gif/revision/latest/scale-to-width-down/250?cb=20200107232825 */
+   /* https://images.wikidexcdn.net/mwuploads/wikidex/f/f8/latest/20180820010545/Profesor_Oak_LGPE.png */

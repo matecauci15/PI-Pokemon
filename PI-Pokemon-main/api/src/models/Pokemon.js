@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, UUID } = require('sequelize');
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
@@ -8,21 +8,22 @@ module.exports = (sequelize) => {
       type: DataTypes.UUID,
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4,
-      // defaultValue: () => uuidv4(),
+      allowNull: false,
     },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },    
     image: {
       type: DataTypes.STRING,
       allowNull: false,
     },    
-    life: {
+    hp: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        isNumeric: true,
+
         min: 0,
         max: 100
       }
@@ -31,7 +32,7 @@ module.exports = (sequelize) => {
       type: DataTypes.DECIMAL,
       allowNull: false,
       validate: {
-        isDecimal: true,
+
         min: 0
       }
     },   
@@ -39,7 +40,7 @@ module.exports = (sequelize) => {
       type: DataTypes.DECIMAL,
       allowNull: false,
       validate: {
-        isDecimal: true,
+
         min: 0
       }
     },   
@@ -47,7 +48,7 @@ module.exports = (sequelize) => {
       type: DataTypes.DECIMAL,
       allowNull: false,
       validate: {
-        isDecimal: true,
+
         min: 0
       }
     },   
@@ -55,7 +56,7 @@ module.exports = (sequelize) => {
       type: DataTypes.DECIMAL,
       allowNull: false,
       validate: {
-        isDecimal: true,
+
         min: 0
       }
     },    
@@ -63,7 +64,7 @@ module.exports = (sequelize) => {
       type: DataTypes.DECIMAL,
       allowNull: false,
       validate: {
-        isDecimal: true,
+
         min: 0
       }
     },    
@@ -71,3 +72,4 @@ module.exports = (sequelize) => {
     { timestamps: false }
   );
 };
+

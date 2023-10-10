@@ -1,9 +1,9 @@
 import './App.css';
 // import Card from './Components/Card/Card';
-import DetailPage from './Components/DetailPage/DetailPage';
-import Form from './Components/Form/Form';
-import HomePage from './Components/HomePage/homePage';
-import LandingPage from './Components/LandingPage/LandingPage';
+import DetailPage from './views/DetailPage/DetailPage';
+import Form from './views/Form/Form';
+import HomePage from './views/HomePage/homePage';
+import LandingPage from './views/LandingPage/LandingPage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 
@@ -16,7 +16,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/homePage" element={<HomePage />} />
           <Route path='/form' element={<Form />} />
-          <Route path='/:name' element={<DetailPage/>}/>
+          <Route path='detail/:id' element={<DetailPage/>}/>
           {/* <Route path='/card' element={<Card/>}/> */}
         </Routes> 
       </BrowserRouter>

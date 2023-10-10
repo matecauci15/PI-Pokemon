@@ -1,0 +1,71 @@
+.home_general{
+    overflow: hidden; 
+    position: relative;
+    background: url('https://img.freepik.com/vector-gratis/fondo-efecto-zoom-degradado-azul_23-2149762303.jpg') no-repeat;
+    background-size: cover;
+    /* width: 100%; */
+    height: 150vh;
+} 
+.container{
+    position: relative;
+    top: 150px;
+    left: 120px;
+    background-color: red;
+    width: 300px;
+    height: 500px;
+    border-radius: 20px;
+    
+  }
+.filters{
+    display: flex;
+    position: absolute;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 50px;
+    left: 37%;
+}
+
+.filter_az{
+    margin-right: 5px;
+}
+.filter_types{
+    margin-right: 5px;
+}
+.filter_types{
+    margin-left: 5px;
+}
+/* .article:hover {
+    transform: scale(1.1);
+} */
+.pagination-container {
+    /* overflow: hidden; */
+    /* display: flex; */
+    /* position: fixed; */
+    position: absolute;
+    margin-top: 13%;
+    margin-left: 45%;
+    /* justify-content: center; */
+    /* justify-self: end; */
+    /* justify-content: end; */
+}
+  
+.pagination-button {
+    margin: 3px 3px;
+    padding: 5px 10px;
+    background-color: #ccc;
+    border: 1px solid #999;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+  
+.pagination-button:hover {
+    background-color: #999;
+    border: none;
+}
+
+.pagination-button.active {
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
