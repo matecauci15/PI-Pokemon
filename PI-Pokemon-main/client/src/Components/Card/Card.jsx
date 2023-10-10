@@ -22,7 +22,7 @@ function Card({pokemon}) {
         <span>{name}</span>
         {/* {types.map(t => <p style={{ backgroundColor: getColorForType(t.name) }}>{t.name}</p>)} */}
         <p className="">{types.join(' | ')}</p>
-        <span>#{id}</span>
+        {/* <span>#{id}</span> */}
           </div>
           </div>          
       </Link>  
