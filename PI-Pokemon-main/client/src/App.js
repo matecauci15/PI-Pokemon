@@ -17,7 +17,6 @@ function App() {
           <Route path="/homePage" element={<HomePage />} />
           <Route path='/form' element={<Form />} />
           <Route path='detail/:id' element={<DetailPage/>}/>
-          {/* <Route path='/card' element={<Card/>}/> */}
         </Routes> 
       </BrowserRouter>
     </div>

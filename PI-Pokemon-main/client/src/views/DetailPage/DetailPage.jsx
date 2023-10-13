@@ -9,7 +9,8 @@ const Detail = () => {
   const {id} = useParams()
 
   // global state = component subscribed to global state
-  const [pokemon, setPokemon] = useState({})
+  const [pokemon, setPokemon] = useState()
+
   // const [pokemon, setPokemon] = useState();
   // const { name } = useParams();
 
@@ -21,7 +22,7 @@ const Detail = () => {
   },[id])
 
     if (!pokemon) {
-        return <div className='loading'>
+        return <div className={styles.loading}>
           <img src="https://images.hive.blog/0x0/https://h93805.files.wordpress.com/2017/01/flaming_charizard.gif" 
           alt="" />
           Loading...
@@ -41,7 +42,7 @@ const Detail = () => {
         <h3>#{pokemon?.id}</h3>
         <img
             className={styles.detail_img}
-            src={gifUrl} 
+            src={gifUrl? gifUrl : pokemon.image} 
             alt={pokemon.name}
             />
         <div className={styles.other_details}>

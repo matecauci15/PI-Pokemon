@@ -12,29 +12,10 @@ const HomePage = () => {
   // global state = component subscribed to global state
   const allPokemons = useSelector(state => state.allPokemons)
   const pokemonsCopy = useSelector((state) => state.pokemonsCopy); //  copia lista de pokemon ordenada
-  console.log(pokemonsCopy);
+  
   const allTypes = useSelector(state => state.allTypes)
+  
   const [searchPokemon, setSearchPokemon] = useState("")
-
-
-  function handleChange(event) {
-    event.preventDefault()
-    setSearchPokemon(event.target.value)
-  }
-
-  function handleSubmit(event){
-    event.preventDefault();
-    if (searchPokemon) {
-      dispatch(getPokemonByName(searchPokemon));
-    } else {
-      dispatch(getPokemon());
-    }
-  }
-  function handleClearSearch() {
-    setSearchPokemon(""); // establece el valor de busqueda en una cadena vacia
-    dispatch(getPokemon(allPokemons)); // muestra todos los pokemon
-  }
-
   
   useEffect(() => {
     // when page render will send the action and modify the state
@@ -42,51 +23,66 @@ const HomePage = () => {
     dispatch(getPokemon())
   },[dispatch])
   
+  
+  function handleChange(event) {
+    // event.preventDefault()
+    setSearchPokemon(event.target.value)
+  }
+
+  function handleSubmit(){
+    // event.preventDefault();
+    if (searchPokemon) {
+      dispatch(getPokemonByName(searchPokemon));
+    } else {
+      dispatch(getPokemon(pokemonsCopy));
+    }
+  }
+  function handleClearSearch() {
+    // event.preventDefault()
+    setSearchPokemon(""); // establece el valor de busqueda en una cadena vacia
+    dispatch(getPokemon()); // muestra todos los pokemon
+  }
+
   // funcion para manejar el cambio de ORDEN A-Z Z-A
   const handleOrderChange = (event) => {
-    event.preventDefault();
-    const order = event.target.value; // 'AA' para ascendente, 'ZA' para descendente
-    dispatch(orderByName(order)); // llama a la accion para ordenar los pokemons
+    // event.preventDefault();
+    const {value} = event.target; // 'AA' para ascendente, 'ZA' para descendente
+    dispatch(orderByName(value)); // llama a la accion para ordenar los pokemons
   };
   
-  // Filtrado por ORIGEN 
-  // const handleOrigin = (event) =>{
-  //   event.preventDefault();
-  //   const origin = event.target.event
-  //   dispatch(filterByOrigin(origin));
-  // };
-  
+  // filtrado por Origen
   const handleOriginFilter = (event)=>{
-    event.preventDefault()
+    // event.preventDefault()
     const {value} = event.target;
     dispatch(filterByOrigin(value))
 }
   
   // Filtrado por TYPE
   const handleTypeChange = (event) => {
+    // event.preventDefault()
     const {value} = event.target;
     dispatch(filterByType(value)); // llama a la accion para filtrar los pokemon por tipo
   };
   
+  
+  //Filtrado por Ataque
+  const handlerFilterAtack = (event)=> {
+    // event.preventDefault()
+    const {value} = event.target;
+    dispatch(filterByAttack(value)) 
+  }
+  
+
   const handleClearFilters = (event) => {
+    // event.preventDefault()
     if(event.target.value === "All"){
       dispatch(getPokemon())
     }
   }
-  
-  //Filtrado por Ataque
-  const handlerFilterAtack = (event)=> {
-    const {value} = event.target;
-    dispatch(filterByAttack(value)) 
-}
-  
+
   // Paginado
   const [currentPage, setCurrentPage] = useState(1);
   const [pokemonsPerPage] = useState(12);
-  
-  const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
 
   const indexOfLastPokemon = currentPage * pokemonsPerPage;
   const indexOfFirstPokemon = indexOfLastPokemon - pokemonsPerPage;
@@ -98,11 +94,11 @@ const HomePage = () => {
 
 
   const nextHandler = () => {
-    // verificamos si estámos en la última página, para no avanzar mas
+    // verificamos si estamos en la última pagina, para no avanzar mas
     if (indexOfFirstPokemon + pokemonsPerPage >= allPokemons.length) {
       return;
     }
-    if (indexOfFirstPokemon >= allPokemons.length) return; // Validación para detenerse
+    if (indexOfFirstPokemon >= allPokemons.length) return; // validacion para detenerse
     setCurrentPage(currentPage + 1);
   }
 

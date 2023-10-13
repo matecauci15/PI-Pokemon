@@ -7,7 +7,7 @@ const validateName = (name) => {
   const validateImage = (image) => {
     const urlRegex = /^(https?:\/\/)?([a-zA-Z0-9.-]+)(\.[a-zA-Z]{2,})(:\d{1,5})?(\/\S*)?$/;
     if (image === '') return 'Complete with an URL';
-    if (!urlRegex.test(image)) return 'URL inválida';
+    if (!urlRegex.test(image)) return 'Invalid URL';
     return '';
   };
   
