@@ -8,12 +8,12 @@ const initialState = {
 
 const rootReducer = (state = initialState, action) => {
     switch(action.type){
-        case GET_POKEMONS:
-            return {
-                // devolvemos la copia para no pisar el estado
-                ...state,
-                allPokemons: action.payload,
-                pokemonsCopy: action.payload
+            case GET_POKEMONS:
+                return {
+                    // devolvemos la copia para no pisar el estado
+                    ...state,
+                    allPokemons: action.payload,
+                    pokemonsCopy: action.payload
             }
             case GET_TYPES:
                 return {
@@ -37,7 +37,6 @@ const rootReducer = (state = initialState, action) => {
                     }
                     return 0;
                 });
-                  
                 return {
                     ...state,
                     allPokemons: sortedPokemons,

@@ -1,14 +1,3 @@
-// const getPokemonIdHandler = async(req, res)=>{
-//     try {
-//         const {id} = req.params;
-//         const pokemonID = await getPokemonsById(id);
-//         return res.status(200).json(pokemonID);
-//     } catch (error) {
-//         console.error('Error en getIdPokemon(handlers):', error);
-//         return res.status(500).json({error: 'No existe un pokemon con el ID proporcionado'});
-//     }
-// };
-
 const {getAllPokemons, pokemonCreate, pokemonsById, pokemonsByName, deletePokemonById} = require('../Controllers/pokemonController')
 
 const createPokemon = async(req, res)=>{
@@ -49,14 +38,26 @@ const getPokemons = async(req, res)=>{
 
             
 const getPokemonById = async(req, res)=>{
-    try {
         const {id} = req.params;
+    try {
         const pokeId = await pokemonsById(id);
         return res.status(200).json(pokeId);
     } catch (error) {
         return res.status(400).json(error.message, {error: 'No existe un pokemon con el ID proporcionado'});
     }
 };
+// const getPokemonId = async (id) => {
+//     if (isNaN(id)) {
+//       const pokemonsId = await Pokemon.findByPk(id);
+//       return pokemonsId; 
+//     }
+  
+//     const apiResponse = (await axios.get("https://pokeapi.co/api/v2/pokemon?limit=200")).data.results;
+//     const pokeId = apiResponse.find((pokemon) => pokemon.url.endsWith(`/${id}/`));
+//     if(!pokeId) return ("Couldn't find any pokemon with the specified id");
+//     return pokeId;
+//   }
+
 //buscar para hacer
 const deletePokemon = async (req, res) => {
         try {
@@ -64,7 +65,7 @@ const deletePokemon = async (req, res) => {
             const response = await deletePokemonById(id)
             return res.status(200).json(response)
     } catch (error) {
-                    res.status(400).send(error.message)
+            res.status(400).send(error.message)
                         
     }
  }
@@ -72,7 +73,6 @@ const deletePokemon = async (req, res) => {
 module.exports = {
     getPokemons,
     getPokemonById,
-    // getNamePokemon,
     deletePokemon,
     createPokemon
 }

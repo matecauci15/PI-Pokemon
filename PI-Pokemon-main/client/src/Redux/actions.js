@@ -56,7 +56,7 @@ export function getPokemonByName(name){
 }
 export function orderByName(order) {
     return {
-      type: ORDER_BY_NAME,
+      type: ORDER_BY_NAME, 
       payload: order
     };
   }
