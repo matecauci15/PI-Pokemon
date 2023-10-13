@@ -19,6 +19,7 @@
     display: flex;
     justify-content: space-between;
     width: 15rem;
+    margin-left: 110px;
 }
 .link_button{
     border-radius: 5px;
