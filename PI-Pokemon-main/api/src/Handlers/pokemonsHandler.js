@@ -59,20 +59,20 @@ const getPokemonById = async(req, res)=>{
 //   }
 
 //buscar para hacer
-// const deletePokemon = async (req, res) => {
-//         try {
-//             const { id } = req.params
-//             const response = await deletePokemonById(id)
-//             return res.status(200).json(response)
-//     } catch (error) {
-//             res.status(400).send(error.message)
+const deletePokemon = async (req, res) => {
+        try {
+            const { id } = req.params
+            const response = await deletePokemonById(id)
+            return res.status(200).json(response)
+    } catch (error) {
+            res.status(400).send(error.message)
                         
-//     }
-//  }
+    }
+ }
                         
 module.exports = {
     getPokemons,
     getPokemonById,
-    // deletePokemon,
+    deletePokemon,
     createPokemon
 }

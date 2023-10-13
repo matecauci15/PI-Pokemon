@@ -74,13 +74,13 @@ const pokemonsByName = async(name)=>{
   return pokeName
 }
 
-// const deletePokemonById = async (id) => {
-//     const pokemon = await Pokemon.findOne({where: {id: id}})    
-//         if(pokemon){
-//             await Pokemon.destroy({where: {id:id}})    
-//             return 'El pokemon fue eliminado con exito'
-//     }
-// }
+const deletePokemonById = async (id) => {
+    const pokemon = await Pokemon.findOne({where: {id: id}})    
+        if(pokemon){
+            await Pokemon.destroy({where: {id:id}})    
+            return 'El pokemon fue eliminado con exito'
+    }
+}
 
 const pokemonCreate = async (
   name,
