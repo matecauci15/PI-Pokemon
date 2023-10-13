@@ -11,11 +11,11 @@ const HomePage = () => {
   const dispatch = useDispatch()
   // global state = component subscribed to global state
   const allPokemons = useSelector(state => state.allPokemons)
-  const pokemonsCopy = useSelector((state) => state.pokemonsCopy); //  copia lista de Pokémon ordenada
+  const pokemonsCopy = useSelector((state) => state.pokemonsCopy); //  copia lista de pokemon ordenada
   console.log(pokemonsCopy);
   const allTypes = useSelector(state => state.allTypes)
   const [searchPokemon, setSearchPokemon] = useState("")
-  // const [searchId, setSearchId] = useState("");
+
 
   function handleChange(event) {
     event.preventDefault()
@@ -31,8 +31,8 @@ const HomePage = () => {
     }
   }
   function handleClearSearch() {
-    setSearchPokemon(""); // Establece el valor de búsqueda en una cadena vacía
-    dispatch(getPokemon(allPokemons)); // Muestra todos los Pokémon
+    setSearchPokemon(""); // establece el valor de busqueda en una cadena vacia
+    dispatch(getPokemon(allPokemons)); // muestra todos los pokemon
   }
 
   
@@ -42,11 +42,11 @@ const HomePage = () => {
     dispatch(getPokemon())
   },[dispatch])
   
-  // Función para manejar el cambio de ORDEN A-Z Z-A
+  // funcion para manejar el cambio de ORDEN A-Z Z-A
   const handleOrderChange = (event) => {
     event.preventDefault();
     const order = event.target.value; // 'AA' para ascendente, 'ZA' para descendente
-    dispatch(orderByName(order)); // Llama a la acción para ordenar los Pokémons
+    dispatch(orderByName(order)); // llama a la accion para ordenar los pokemons
   };
   
   // Filtrado por ORIGEN 
@@ -55,7 +55,9 @@ const HomePage = () => {
   //   const origin = event.target.event
   //   dispatch(filterByOrigin(origin));
   // };
+  
   const handleOriginFilter = (event)=>{
+    event.preventDefault()
     const {value} = event.target;
     dispatch(filterByOrigin(value))
 }
@@ -63,7 +65,7 @@ const HomePage = () => {
   // Filtrado por TYPE
   const handleTypeChange = (event) => {
     const {value} = event.target;
-    dispatch(filterByType(value)); // Llama a la acción para filtrar los Pokémon por tipo
+    dispatch(filterByType(value)); // llama a la accion para filtrar los pokemon por tipo
   };
   
   const handleClearFilters = (event) => {
@@ -108,8 +110,6 @@ const HomePage = () => {
     if (currentPage === 0) return;
     setCurrentPage(currentPage - 1);
   }
-
-
 
   return (
     <>

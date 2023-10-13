@@ -3,13 +3,13 @@ import styles from './Form.module.css'
 import { useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import { validateName, validateImage, validateNumber, validateTypes } from '../../utils/validation';
 // import { useDispatch, useSelector } from 'react-redux'
-// import { useDispatch} from 'react-redux'
 // import { postPokemon } from '../../Redux/actions'
 
 function Form() {
   // const dispatch = useDispatch();
-
+  
     // State Global types
     const [types, setTypes] = useState([])
     // const types = useSelector(state=> state.types)
@@ -44,69 +44,38 @@ function Form() {
     weight: '',
     height: '',
     image: '',
-    types: ''
+    types: 'Max two'
   })
 
-//   Validaciones de inputs
-      const validation = (state, name) => {
-        if(name === "name"){
-            if(state.name === '') setErrors({...errors, name:"Complete name"})
-            else if (!/^[a-zA-Z\s]+$/.test(state.name)) setErrors({ ...errors, name: "Name can not contain special characters" })
-            else setErrors({...errors, name: ''})
-        }
-        if(name === "image"){
-            const urlRegex = /^(https?:\/\/)?([a-zA-Z0-9.-]+)(\.[a-zA-Z]{2,})(:\d{1,5})?(\/\S*)?$/;
-            if (state.image === '') {
-              return setErrors({ ...errors, image: 'Complete with an URL' });
-            }
-            if(!urlRegex.test(state.image)){
-              return setErrors({...errors, image: 'URL inválida'})
-            } else {
-              return setErrors({ ...errors, image: '' });
-            };
-        }
-        if(name === "hp"){
-            if(state.hp === '') setErrors({...errors, hp:'Complete with a number'})
-            else if(isNaN(parseInt(state.hp))) setErrors({...errors, hp: "hp must be a number"})
-            else if(!/^[0-9]{1,3}$/.test(state.hp)) setErrors({...errors, hp: "Hp must be between 0-999"})
-            else setErrors({...errors, hp: ''})
-        }
-        if(name === "attack"){
-            if(state.attack === '') setErrors({...errors, attack:'Complete with a number'})
-            else if(isNaN(parseInt(state.attack))) setErrors({...errors, attack: "Attack must be a number"})
-            else if(!/^[0-9]{1,3}$/.test(state.attack)) setErrors({...errors, attack: "Attack must be between 0-999"})
-            else setErrors({...errors, attack: ''})
-        }
-        if(name === "defense"){
-            if(state.defense === '') setErrors({...errors, defense:'Complete with a number'})
-            else if(isNaN(parseInt(state.defense))) setErrors({...errors, defense: "Defense must be a number"})
-            else if(!/^[0-9]{1,3}$/.test(state.defense)) setErrors({...errors, defense: "Defense must be between 0-999"})
-            else setErrors({...errors, defense: ''})
-        }
-        if(name === "speed"){
-            if(state.speed === '') setErrors({...errors, speed:'Complete with a number'})
-            else if(isNaN(parseInt(state.speed))) setErrors({...errors, speed: "Speed must be a number"})
-            else if(!/^[0-9]{1,3}$/.test(state.speed)) setErrors({...errors, speed: "Speed must be between 0-999"})
-            else setErrors({...errors, speed: ''})
-        }
-        if(name === "height"){
-            if(state.height === '') setErrors({...errors, height:'Complete with a number'})
-            else if(isNaN(parseInt(state.height))) setErrors({...errors, height: "Height must be a number"})
-            else if(!/^[0-9]{1,3}$/.test(state.height)) setErrors({...errors, height: "Height must be between 0-999"})
-            else setErrors({...errors, height : ''})
-        }
-        if(name === "weight"){
-            if(state.weight === '') setErrors({...errors, weight:'Complete with a number'})
-            else if(isNaN(parseInt(state.weight))) setErrors({...errors, weight: "Weight must be a number"})
-            else if(!/^[0-9]{1,3}$/.test(state.weight)) setErrors({...errors, weight: "Weight must be between 0-999"})
-            else setErrors({...errors, weight : ''})
-        }
-    //     if(name === "types"){
-    //         if(state.types === '') setErrors({...errors, types:'Select 1 or 2 types'})
-    //         else if(state.types.length > 1) setErrors({...errors, types: "Can not select more than 2 types"})
-    //         else setErrors({...errors, types: ''})
-    // }
+const validation = (state, name) => {
+  if (name === 'name') {
+    setErrors({ ...errors, name: validateName(state.name) });
   }
+  if (name === 'image') {
+    setErrors({ ...errors, image: validateImage(state.image) });
+  }
+  if (name === 'hp') {
+    setErrors({ ...errors, hp: validateNumber(state.hp, 'Hp') });
+  }
+  if (name === 'attack') {
+    setErrors({ ...errors, attack: validateNumber(state.attack, 'Attack') });
+  }
+  if (name === 'defense') {
+    setErrors({ ...errors, defense: validateNumber(state.defense, 'Defense') });
+  }
+  if (name === 'speed') {
+    setErrors({ ...errors, speed: validateNumber(state.speed, 'Speed') });
+  }
+  if (name === 'height') {
+    setErrors({ ...errors, height: validateNumber(state.height, 'Height') });
+  }
+  if (name === 'weight') {
+    setErrors({ ...errors, weight: validateNumber(state.weight, 'Weight') });
+  }
+  if (name === "types") {
+    setErrors({ ...errors, types: validateTypes(state.types) });
+  }
+};
 
   // Disabled Button
   const disableFunction = ()=>{
@@ -160,10 +129,8 @@ function Form() {
   const handleSelect = (event) => {
     event.preventDefault();
     const selectedValue = event.target.value;
-
     if (!state.types.includes(selectedValue)) {
       setErrors({...errors, types: ''})
-
       setState({...state, types: [...state.types, selectedValue]}) 
     } else {
       return
@@ -171,14 +138,6 @@ function Form() {
   };
 
   // Handle Delete Types
-//   const handleDelete = (event) => {
-//     setState({
-//       ...state, // estado anterior
-//       types: state.types.filter((tipo) => tipo !== event), // Elimina el tipo seleccionado
-//     });
-//   };
-
-
       const removeTipo = (event) => {
         setState({
             ...state,

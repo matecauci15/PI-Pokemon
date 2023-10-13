@@ -8,7 +8,6 @@ const LandingPage = () =>  {
             <div className={styles.landingPage}>
                 <img src="https://the-pokemon-app.vercel.app/static/media/pokemon.88ce61a9.png" alt="pokemon" />
                 <div className={styles.landing_button}>
-                    {/* <p>¡Explora el Mundo Pokémon:</p> */}
                     <p>!Explore the pokemon world:</p>
                     <Link to={'/HomePage'}>
                         <button className={styles.button_landing}></button>

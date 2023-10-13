@@ -62,9 +62,7 @@ const getAllPokemons = async () => {
 
 const pokemonsById = async(id)=>{
   const pokeId = (await getAllPokemons()).find((pokemon)=> pokemon.id == id);
-  
   if(!pokeId) return ("Couldn't find any pokemon with the specified id")
-  
   return pokeId
 }
 
@@ -73,9 +71,7 @@ const pokemonsByName = async(name)=>{
   
   const pokeName = pokemons.filter(poke => poke.name.toLowerCase().includes(name.toLowerCase()));
   if(!pokeName.length) return ("Couldn't find any pokemon with that name")
-  
   return pokeName
-  
 }
 
 const deletePokemonById = async (id) => {

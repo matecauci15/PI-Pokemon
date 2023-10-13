@@ -8,7 +8,6 @@
 //         return res.status(500).json({error: 'No existe un pokemon con el ID proporcionado'});
 //     }
 // };
-// module.exports = {createPokemonHandler, getPokemonHandler, getPokemonIdHandler};
 
 const {getAllPokemons, pokemonCreate, pokemonsById, pokemonsByName, deletePokemonById} = require('../Controllers/pokemonController')
 
@@ -37,7 +36,6 @@ const createPokemon = async(req, res)=>{
 const getPokemons = async(req, res)=>{
     try {
         const {name} = req.query;
-        
         if(name){
             const response = await pokemonsByName(name);
             return res.status(200).json(response);
@@ -56,7 +54,7 @@ const getPokemonById = async(req, res)=>{
         const pokeId = await pokemonsById(id);
         return res.status(200).json(pokeId);
     } catch (error) {
-        return res.status(500).json(error.message, {error: 'No existe un pokemon con el ID proporcionado'});
+        return res.status(400).json(error.message, {error: 'No existe un pokemon con el ID proporcionado'});
     }
 };
 //buscar para hacer

@@ -1,7 +1,6 @@
 import axios from "axios"
 import { GET_POKEMONS, GET_TYPES, GET_POKEMON_NAME, ORDER_BY_NAME, FILTER_BY_ORIGIN, FILTER_BY_TYPE, FILTER_BY_ATTACK } from "./actionsTypes";
 
-
 // state pq quiero que reciba la info del form
 //dispatch conecta el componente con laas actions, lleva la info del componente al action y del action al reducer
 export function postPokemon(state){

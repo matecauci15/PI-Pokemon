@@ -10,7 +10,7 @@ const rootReducer = (state = initialState, action) => {
     switch(action.type){
         case GET_POKEMONS:
             return {
-                // return copy state so we dont "pisar" the state
+                // devolvemos la copia para no pisar el estado
                 ...state,
                 allPokemons: action.payload,
                 pokemonsCopy: action.payload
@@ -22,7 +22,7 @@ const rootReducer = (state = initialState, action) => {
             }
             case GET_POKEMON_NAME:
                 return {
-                    // return copy state so we dont "pisar" the state
+                    // devolvemos la copia para no pisar el estado
                     ...state,
                     allPokemons: action.payload,
                     pokemonsCopy: action.payload
@@ -52,15 +52,15 @@ const rootReducer = (state = initialState, action) => {
                     event.types.includes(action.payload)
                     );
                 }
-                return {
-                    ...state,
-                    allPokemons: filterType,
-                }; 
+            return {
+                ...state,
+                allPokemons: filterType,
+            }; 
 
-                case FILTER_BY_ORIGIN:
-                    const createdFilter = action.payload === "created"
-                    ? state.pokemonsCopy.filter((event) => event.createdInDb)
-                    : state.pokemonsCopy.filter((event) => !event.createdInDb);
+            case FILTER_BY_ORIGIN:
+                const createdFilter = action.payload === "created"
+                ? state.pokemonsCopy.filter((event) => event.createdInDb)
+                : state.pokemonsCopy.filter((event) => !event.createdInDb);
             return {
                 ...state,
                 allPokemons: action.payload === "All" ? state.pokemonsCopy : createdFilter,

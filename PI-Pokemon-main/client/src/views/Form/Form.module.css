@@ -1,14 +1,12 @@
   .form_general{
-   /* background: url('https://4.bp.blogspot.com/-t2hhBSfzcnM/WRxC0etTDAI/AAAAAAAACIs/YF6m2turlv4DJILAx7Je8lE7Wu8YTtYRwCLcB/s1600/profesor%2Boak%2Bgif.gif'); */
-   /* background-position: center; */
-   /* background-size: cover;  */
    background-repeat: no-repeat;
    display: flex;
+   margin-top: 80px;
    justify-content: center;
   }
   
   .form_data {
-    height: 40rem;
+    height: 30rem;
     background: linear-gradient(300deg, #ff69b4, #8a2be2, #1e90ff);
     display: flex;
     flex-wrap: wrap;

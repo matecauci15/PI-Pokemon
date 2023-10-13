@@ -5,8 +5,6 @@ import React, { useState, useEffect } from "react"
 import Nav from '../../Components/NavBar/NavBar';
 // import getColorForType from '../../utils/colors';
 
-
-
 const Detail = () => {
   const {id} = useParams()
 
@@ -49,16 +47,12 @@ const Detail = () => {
         <div className={styles.other_details}>
           <h2 className={styles.detail_titlte}>{pokemon?.name}</h2>
           <p className={styles.detail_data}>Hp | {pokemon?.hp}</p>
-          {/* <p className={styles.detail_data}>Hp<i className="fas fa-heart"></i> | {pokemon?.hp}</p> */}
           <p className={styles.detail_data}>Height | {pokemon?.height}cm</p>
           <p className={styles.detail_data}>Weight | {pokemon?.weight}kg</p>
           <p className={styles.detail_data}>Attack | {pokemon?.attack}</p>
           <p className={styles.detail_data}>Defense | {pokemon?.defense}</p>
           <p className={styles.detail_data}>Speed | {pokemon?.speed} </p>
           <p className={styles.detail_data}>Type: {pokemon.types?.join(' | ')}  </p>  
-          {/* <p>Types: {pokemon?.types.map((type, index) => (
-    <span key={index}>{type.type.name}</span>
-  ))}</p> */}
 
           <Link className={styles.link_to} to='/homePage'>
             <button className={styles.button_detail}>Return</button>

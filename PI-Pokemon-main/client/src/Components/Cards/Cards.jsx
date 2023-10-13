@@ -1,6 +1,5 @@
 import React from 'react';
 import Card from '../Card/Card';
-// import './Cards.css';
 import styles from './Cards.module.css';
 
 function Cards({allPokemons}) {
