@@ -1,15 +1,17 @@
-import './LandingPage.css'
+// import './LandingPage.css'
+import styles from './LandingPage.module.css'
 import { Link } from 'react-router-dom'
 
 const LandingPage = () =>  {
     return (
-        <div className="landing_general">
-            <div className='landingPage'>
+        <div className={styles.landing_general}>
+            <div className={styles.landingPage}>
                 <img src="https://the-pokemon-app.vercel.app/static/media/pokemon.88ce61a9.png" alt="pokemon" />
-                <div className="landing_button">
-                    <p>¡Explora el Mundo Pokémon:</p>
+                <div className={styles.landing_button}>
+                    {/* <p>¡Explora el Mundo Pokémon:</p> */}
+                    <p>!Explore the pokemon world:</p>
                     <Link to={'/HomePage'}>
-                        <button className='button_landing'></button>
+                        <button className={styles.button_landing}></button>
                     </Link>
                 </div>
             </div>

@@ -25,9 +25,9 @@
     "sequelize": "^6.3.5"
   },
   "devDependencies": {
+    "babel-preset-react-app": "latest",
     "chai": "^4.2.0",
     "mocha": "^8.2.1",
-    "babel-preset-react-app": "^versión",
     "nodemon": "^2.0.6",
     "supertest": "^6.0.1",
     "supertest-session": "^4.1.0"

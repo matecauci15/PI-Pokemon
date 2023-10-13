@@ -40,7 +40,6 @@ module.exports = (sequelize) => {
       type: DataTypes.DECIMAL,
       allowNull: false,
       validate: {
-
         min: 0
       }
     },   
@@ -48,7 +47,6 @@ module.exports = (sequelize) => {
       type: DataTypes.DECIMAL,
       allowNull: false,
       validate: {
-
         min: 0
       }
     },   
@@ -56,7 +54,6 @@ module.exports = (sequelize) => {
       type: DataTypes.DECIMAL,
       allowNull: false,
       validate: {
-
         min: 0
       }
     },    
@@ -64,7 +61,6 @@ module.exports = (sequelize) => {
       type: DataTypes.DECIMAL,
       allowNull: false,
       validate: {
-
         min: 0
       }
     },    

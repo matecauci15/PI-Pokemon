@@ -59,7 +59,7 @@ const getPokemonById = async(req, res)=>{
         return res.status(500).json(error.message, {error: 'No existe un pokemon con el ID proporcionado'});
     }
 };
-            
+//buscar para hacer
 const deletePokemon = async (req, res) => {
         try {
             const { id } = req.params
@@ -71,8 +71,6 @@ const deletePokemon = async (req, res) => {
     }
  }
                         
-            
-
 module.exports = {
     getPokemons,
     getPokemonById,

@@ -1,0 +1,21 @@
+.all_cards{
+    display: flex;
+    /* display: grid; */
+    /* grid-template-columns: 200px 900px; */
+    /* grid-template-rows: 100px 75px; */
+    justify-content: space-around;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.span_error{
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    height: 500px; 
+    font-weight: 900;
+    font-size: x-large;
+    text-decoration: overline;
+    margin: 40px;
+}

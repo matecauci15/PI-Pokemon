@@ -1,17 +1,12 @@
-
-
 const axios = require('axios');
-
 const {Pokemon, Type} = require('../db')
-
 
 const apiPokemons = async()=>{
   const  apiResponse =  (await axios.get('https://pokeapi.co/api/v2/pokemon?limit=200')).data.results
   
-  // Promise.all = Es un iterador de promesas que resuelve las promesas y devuelve una promesa
-  const pokeapi = await Promise.all(apiResponse.map(async (poke)=>{
-    let pokemon = await axios.get(poke.url);
-    
+  const pokemonApi = await Promise.all(apiResponse.map(async (pokeApi)=>{
+    let pokemon = await axios.get(pokeApi.url);
+
     return {
       id: pokemon.data.id,
       image: pokemon.data.sprites.other.home.front_default,
@@ -25,22 +20,20 @@ const apiPokemons = async()=>{
       types: pokemon.data.types.map((tipo) => tipo.type.name),
     }
   }))
-  
-  return pokeapi
+  return pokemonApi
 };
 
 const dbPokemons = async()=>{
   const pokemonsDb = await Pokemon.findAll({
     include: {
       model: Type,
-      attributes: ['name'],
-      through: {
-        attributes: [],
+        attributes: ['name'],
+          through: {
+            attributes: [],
       },
-    },
-  });
+    }});
   
-  const pokemons = pokemonsDb?.map( pokemon => {
+  const pokemons = pokemonsDb?.map((pokemon) => {
     return {
       id: pokemon.id,
       image: pokemon.image,
@@ -52,18 +45,17 @@ const dbPokemons = async()=>{
       height: pokemon.height,
       weight: pokemon.weight,
       types: pokemon.types.map( types => types.name),
-    };
-  });
+      createdInDb: true
+    }});
   return pokemons;   
   
 };
 
 const getAllPokemons = async () => {
-  const pokeDb = await dbPokemons(); // Obtener datos de la base de datos
-  const pokeApi = await apiPokemons(); // Obtener datos de la API
+  const pokeDb = await dbPokemons(); 
+  const pokeApi = await apiPokemons(); 
   
-  // Realiza la unión de datos, por ejemplo, fusiona los arrays o realiza alguna lógica específica según tus necesidades
-  const allPokemons = [ ...pokeApi, ...pokeDb];
+  const allPokemons = [ ...pokeApi, ...pokeDb];//unimos todo db y todo api
   
   return allPokemons;
 };
@@ -85,6 +77,7 @@ const pokemonsByName = async(name)=>{
   return pokeName
   
 }
+
 const deletePokemonById = async (id) => {
     const pokemon = await Pokemon.findOne({where: {id: id}})    
         if(pokemon){
@@ -103,7 +96,6 @@ const pokemonCreate = async (
   height, 
   weight, 
   types) => {
-
         const newPokemon = await Pokemon.create({ 
         name,
         image, 
@@ -120,7 +112,6 @@ const pokemonCreate = async (
             {
                name : type
             }});
-
             await newPokemon.addTypes(typesDB);
         });
 

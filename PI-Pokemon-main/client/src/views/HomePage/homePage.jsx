@@ -1,58 +1,87 @@
 import NavBar from '../../Components/NavBar/NavBar';
 import React, {useEffect, useState } from 'react';
-import './HomePage.css';
-// import getColorForType from '../../utils/colors'
+import styles from './HomePage.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterByOrigin, filterByType, getPokemon, getPokemonByName, getTypes, orderByName } from '../../Redux/actions';
+import { filterByAttack, filterByOrigin, filterByType, getPokemon, getPokemonByName, getTypes, orderByName } from '../../Redux/actions';
 import Cards from '../../Components/Cards/Cards';
+// import getColorForType from '../../utils/colors'
 // import Footer from '../Footer/Footer';
 
 const HomePage = () => {
   const dispatch = useDispatch()
-  // const pokemons = useSelector((state) => state.pokemonsCopy); //  copia lista de Pokémon ordenada
   // global state = component subscribed to global state
   const allPokemons = useSelector(state => state.allPokemons)
+  const pokemonsCopy = useSelector((state) => state.pokemonsCopy); //  copia lista de Pokémon ordenada
+  console.log(pokemonsCopy);
   const allTypes = useSelector(state => state.allTypes)
-
   const [searchPokemon, setSearchPokemon] = useState("")
   // const [searchId, setSearchId] = useState("");
-  // const [selectedOrigin, setSelectedOrigin] = useState("all");
-
 
   function handleChange(event) {
     event.preventDefault()
     setSearchPokemon(event.target.value)
   }
+
   function handleSubmit(event){
-    event.preventDefault()
-    dispatch(getPokemonByName(searchPokemon))
+    event.preventDefault();
+    if (searchPokemon) {
+      dispatch(getPokemonByName(searchPokemon));
+    } else {
+      dispatch(getPokemon());
+    }
+  }
+  function handleClearSearch() {
+    setSearchPokemon(""); // Establece el valor de búsqueda en una cadena vacía
+    dispatch(getPokemon(allPokemons)); // Muestra todos los Pokémon
   }
 
   
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pokemonsPerPage] = useState(12);
-
-
   useEffect(() => {
     // when page render will send the action and modify the state
     dispatch(getTypes());
     dispatch(getPokemon())
   },[dispatch])
-
-  // Función para manejar el cambio de orden
+  
+  // Función para manejar el cambio de ORDEN A-Z Z-A
   const handleOrderChange = (event) => {
+    event.preventDefault();
     const order = event.target.value; // 'AA' para ascendente, 'ZA' para descendente
     dispatch(orderByName(order)); // Llama a la acción para ordenar los Pokémons
   };
-
-  // filtrado por origen 
-  const handleOrigin = (event)=>{
+  
+  // Filtrado por ORIGEN 
+  // const handleOrigin = (event) =>{
+  //   event.preventDefault();
+  //   const origin = event.target.event
+  //   dispatch(filterByOrigin(origin));
+  // };
+  const handleOriginFilter = (event)=>{
     const {value} = event.target;
     dispatch(filterByOrigin(value))
 }
-
-// Paginado
+  
+  // Filtrado por TYPE
+  const handleTypeChange = (event) => {
+    const {value} = event.target;
+    dispatch(filterByType(value)); // Llama a la acción para filtrar los Pokémon por tipo
+  };
+  
+  const handleClearFilters = (event) => {
+    if(event.target.value === "All"){
+      dispatch(getPokemon())
+    }
+  }
+  
+  //Filtrado por Ataque
+  const handlerFilterAtack = (event)=> {
+    const {value} = event.target;
+    dispatch(filterByAttack(value)) 
+}
+  
+  // Paginado
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pokemonsPerPage] = useState(12);
+  
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -67,6 +96,10 @@ const HomePage = () => {
 
 
   const nextHandler = () => {
+    // verificamos si estámos en la última página, para no avanzar mas
+    if (indexOfFirstPokemon + pokemonsPerPage >= allPokemons.length) {
+      return;
+    }
     if (indexOfFirstPokemon >= allPokemons.length) return; // Validación para detenerse
     setCurrentPage(currentPage + 1);
   }
@@ -76,54 +109,53 @@ const HomePage = () => {
     setCurrentPage(currentPage - 1);
   }
 
-  // Filter by TYPE
-  const [selectedType, setSelectedType] = useState(""); // Estado para almacenar el tipo seleccionado
-
-  const handleTypeChange = (event) => {
-    const type = event.target.value;
-    setSelectedType(type); // Actualiza el tipo seleccionado en el estado local
-    dispatch(filterByType(type)); // Llama a la acción para filtrar los Pokémon por tipo
-  };
 
 
   return (
-    <div className='home_general'>
+    <>
       <div>
-      <NavBar handleChange={handleChange} handleSubmit={handleSubmit}/>
+      <NavBar handleChange={handleChange} handleSubmit={handleSubmit} handleClearSearch={handleClearSearch}/>
       </div>
 
-      <div className='filters'>
-      <div className='filter_az'>
-      <select onChange={handleOrderChange}>
-        <option value="AA">Ascendente (A-Z)</option>
-        <option value="ZA">Descendente (Z-A)</option>
+      <div className={styles.filters}>
+      <div>
+      <select className={styles.filter_types} onChange={handleOrderChange} name='order'  handleClearFilters={handleClearFilters}>
+      <option value="All">Order</option>
+        <option value="AA">A-Z</option>
+        <option value="ZA">Z-A</option>
       </select>
     </div>
-    <div className='filter_types'>
-      <select onChange={handleTypeChange} value={selectedType}>
-        <option value="">Todos</option>
+    <div>
+      <select className={styles.filter_types} onChange={handleTypeChange} name='types'  handleClearFilters={handleClearFilters} >
+        <option  value="All">Types</option>
         {allTypes?.map(tipo => <option key={tipo} value={tipo}>{tipo}</option>)}   
       </select>
     </div>
-    <div className='filter_types'>
-    <select name="origen" onChange={handleOrigin}>
-                <option value="ALL">-Pokemones-</option>
-                <option value="DB">Mis pokemones</option>
-                <option value="API">Pokemones de la App</option>
-                <option value="ALL">Todos los pokemones</option>
-            </select>
+    <div >
+          <select className={styles.filter_types} name="origen"  handleClearFilters={handleClearFilters} onChange={(event) => handleOriginFilter(event)}>
+              <option value="All">Created</option>
+              <option value="created">DB</option>
+              <option value="api">API</option>
+          </select>
+    </div>
+    <div>
+      <select className={styles.filter_types} name='attack' onChange={handlerFilterAtack} handleClearFilters={handleClearFilters}>
+        <option value="All">Attack</option>
+        <option value="ascending">Ascending (A-Z)</option>
+        <option value="descending">Descending (Z-A)</option>
+      </select>
     </div>
       </div>
 
-    <div className='home_cards'> 
+    <div className={styles.home_cards}> 
         <Cards allPokemons={currentPokemons} />
     </div>
-    <div className='pagination-container'>
-      <button className="" onClick={prevHandler}>Prev</button>
-      <button className="" >{currentPage}</button>
-      <button className="" onClick={nextHandler}>Next</button>
+    <div className={styles.pagination_container}>
+      <button className={styles.pagination_button} onClick={prevHandler}  disabled={currentPage === 1}>Prev</button>
+      <button className={styles.pagination_button} >{currentPage}</button>
+      <button className={styles.pagination_button} onClick={nextHandler} disabled={indexOfFirstPokemon + pokemonsPerPage >= allPokemons.length}>Next</button>
     </div>
-    </div>
+    </>
   );
 };
 

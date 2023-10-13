@@ -1,4 +1,4 @@
-import { GET_POKEMONS, GET_POKEMON_NAME, GET_TYPES, ORDER_BY_NAME, FILTER_BY_ORIGIN, FILTER_BY_TYPE } from "./actionsTypes"
+import { GET_POKEMONS, GET_POKEMON_NAME, GET_TYPES, ORDER_BY_NAME, FILTER_BY_ORIGIN, FILTER_BY_TYPE, FILTER_BY_ATTACK } from "./actionsTypes"
 
 const initialState = {
     allPokemons: [],
@@ -29,24 +29,20 @@ const rootReducer = (state = initialState, action) => {
                 }
                     
             case ORDER_BY_NAME:
-            let copy1 = state.allPokemons;
-            if (action.payload === 'AA') {
+                const sortedPokemons = state.pokemonsCopy.slice().sort((a, b) => {
+                    if (action.payload === 'AA') {
+                    return a.name.localeCompare(b.name);
+                    } else if (action.payload === 'ZA') {
+                    return b.name.localeCompare(a.name);
+                    }
+                    return 0;
+                });
+                  
                 return {
-                    ...state, allPokemons: copy1.sort((a, b) => {
-                        if (a.name < b.name) return -1
-                        if (a.name > b.name) return 1
-                        return 0
-                    }).map(p => p)
-                }
-            } else {
-                return {
-                    ...state, allPokemons: copy1.sort((a, b) => {
-                        if (a.name < b.name) return 1
-                        if (a.name > b.name) return -1
-                        return 0
-                    }).map(p => p)
-                }
-            }
+                    ...state,
+                    allPokemons: sortedPokemons,
+                };
+                    
             case FILTER_BY_TYPE:
                 let filterType;
                 if (action.payload === "All") {
@@ -62,16 +58,24 @@ const rootReducer = (state = initialState, action) => {
                 }; 
 
                 case FILTER_BY_ORIGIN:
-                    if (action.payload === 'DB') {
-                        return { ...state, pokemones: state.pokemonesDB }
+                    const createdFilter = action.payload === "created"
+                    ? state.pokemonsCopy.filter((event) => event.createdInDb)
+                    : state.pokemonsCopy.filter((event) => !event.createdInDb);
+            return {
+                ...state,
+                allPokemons: action.payload === "All" ? state.pokemonsCopy : createdFilter,
+            }
+            case FILTER_BY_ATTACK:
+                let copy = state.allPokemons;
+                if (action.payload === 'descending') {
+                    return {
+                        ...state, allPokemons: copy.sort((a, b) => b.attack - a.attack).map(poke => poke)
                     }
-                    if (action.payload === 'API') {
-                        return { ...state, pokemones: state.pokemonesAPI }
+                } else {
+                    return {
+                        ...state, allPokemons: copy.sort((a, b) => a.attack - b.attack).map(poke => poke)
                     }
-                    if (action.payload === 'ALL') {
-                        return { ...state, pokemones: state.allPokemones }
-                    }
-                break
+                }
                 default:
                     return {...state}
             }

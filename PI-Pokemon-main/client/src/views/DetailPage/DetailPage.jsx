@@ -1,7 +1,8 @@
 import axios from 'axios';
-import './DetailPage.css'
+import styles from './DetailPage.module.css'
 import { useParams, Link } from "react-router-dom"
 import React, { useState, useEffect } from "react"
+import Nav from '../../Components/NavBar/NavBar';
 // import getColorForType from '../../utils/colors';
 
 
@@ -34,35 +35,38 @@ const Detail = () => {
 
 
   return (
-    <div className="details">
-      <div className="detail_card" key={pokemon.id}>
+    <>
+    <Nav className={styles.nav_detail}/>
+    <div className={styles.details}>
+      
+      <div className={styles.detail_card} key={pokemon.id}>
         <h3>#{pokemon?.id}</h3>
         <img
-            className='detail_img'
+            className={styles.detail_img}
             src={gifUrl} 
             alt={pokemon.name}
             />
-            <h2>{pokemon?.name}</h2>
-        <div className="other_details">
-          <p>Hp: {pokemon?.hp}</p>
-          <p>Height: {pokemon?.height} cm</p>
-          <p>Weight: {pokemon?.weight} kg</p>
-          <p>Attack: {pokemon?.attack} </p>
-          <p>Defense: {pokemon?.defense}</p>
-          <p>Speed: {pokemon?.speed}</p>
-          <p>Type: {pokemon.types?.join(' | ')}</p>  
+        <div className={styles.other_details}>
+          <h2 className={styles.detail_titlte}>{pokemon?.name}</h2>
+          <p className={styles.detail_data}>Hp | {pokemon?.hp}</p>
+          {/* <p className={styles.detail_data}>Hp<i className="fas fa-heart"></i> | {pokemon?.hp}</p> */}
+          <p className={styles.detail_data}>Height | {pokemon?.height}cm</p>
+          <p className={styles.detail_data}>Weight | {pokemon?.weight}kg</p>
+          <p className={styles.detail_data}>Attack | {pokemon?.attack}</p>
+          <p className={styles.detail_data}>Defense | {pokemon?.defense}</p>
+          <p className={styles.detail_data}>Speed | {pokemon?.speed} </p>
+          <p className={styles.detail_data}>Type: {pokemon.types?.join(' | ')}  </p>  
           {/* <p>Types: {pokemon?.types.map((type, index) => (
     <span key={index}>{type.type.name}</span>
   ))}</p> */}
 
-          <Link to='/homePage'>
-            <button className='button_detail'>
-              {'Return'}
-            </button>
+          <Link className={styles.link_to} to='/homePage'>
+            <button className={styles.button_detail}>Return</button>
           </Link>
         </div>
       </div>
     </div>
+  </>
   );
 }
 

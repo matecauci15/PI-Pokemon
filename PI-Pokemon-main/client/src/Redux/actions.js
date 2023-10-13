@@ -1,5 +1,5 @@
 import axios from "axios"
-import { GET_POKEMONS, GET_TYPES, GET_POKEMON_NAME, ORDER_BY_NAME, FILTER_BY_ORIGIN, FILTER_BY_TYPE } from "./actionsTypes";
+import { GET_POKEMONS, GET_TYPES, GET_POKEMON_NAME, ORDER_BY_NAME, FILTER_BY_ORIGIN, FILTER_BY_TYPE, FILTER_BY_ATTACK } from "./actionsTypes";
 
 
 // state pq quiero que reciba la info del form
@@ -55,19 +55,12 @@ export function getPokemonByName(name){
         }
     }
 }
-export function orderByName(order){
-    return async (dispatch) => {
-        try {
-            // const response = await axios.get(`http://localhost:3001/pokemons/?name=${name}`)
-            dispatch({
-                type: ORDER_BY_NAME,
-                payload: order
-            })
-        }catch(error){
-            console.log(error.message);
-        }
-    }
-}
+export function orderByName(order) {
+    return {
+      type: ORDER_BY_NAME,
+      payload: order
+    };
+  }
 export const filterByType = (type) => {
     return {
       type: FILTER_BY_TYPE,
@@ -75,9 +68,15 @@ export const filterByType = (type) => {
     };
   };
 
-  export const filterByOrigin = (origin)=>{
-    return{
+  export const filterByOrigin = (payload)=>{
+    return {
         type: FILTER_BY_ORIGIN,
-        payload: origin
-    }
-}
+        payload,
+      };
+    };
+    export const filterByAttack = (filter)=>{
+        return{
+            type: FILTER_BY_ATTACK,
+            payload: filter
+        }
+    } 

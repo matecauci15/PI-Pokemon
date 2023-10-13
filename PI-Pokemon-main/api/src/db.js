@@ -1,11 +1,11 @@
 require('dotenv').config();
 const { Sequelize } = require('sequelize');
-const fs = require('fs');
-const path = require('path');
+const fs = require('fs'); // fs de node read/create/detete/update/rename local files
+const path = require('path'); //node
 // const Type = require('./models/Type');
 // const Pokemon = require('./models/Pokemon');
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
-
+// create a sequelize instance
 const sequelize = new Sequelize(
    `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/pokemon`,
    {

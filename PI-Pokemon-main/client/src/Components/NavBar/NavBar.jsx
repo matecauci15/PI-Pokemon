@@ -36,62 +36,37 @@
 //     //     }
 //     //  };
 
-//     return (
-//         <div className={`nav ${show && 'nav_black'}`}>
-//             {/* <div className="nav_content"> */}
-//             <Link to="/homePage/">
-//             <img
-//             // onClick={handleClick} 
-//             className='nav_logo'
-//             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5uaj5DOEA_dE7pOGFOtlFWjSx7REGmeKbWA&usqp=CAU" alt="Perrito inicio" />
-//             </Link>
-//             {/* </div> */}
-//                 <div className='nav_links'>
-//                         <Link className='nav_link_to' to='/'> Inicio</Link>
-//                         <Link className='nav_link_to' to='/form'>Create</Link>
-//                 </div> 
-//             <div>
-//             <form onChange={handleChange} className='search_form'>
-//                 <input className='input_search' type="search" placeholder='Search by name or Id' />
-//                 <button type="submit" onClick={handleSubmit}>Search</button>
-
-//             </form>
-//             </div>
-//     </div>
-//     );
-// }
-
-// export default Nav
-
-import React, { useState } from 'react';
-import './NavBar.css';
+// import React, { useState } from 'react';
+import React from 'react';
+import styles from './NavBar.module.css';
 import { Link } from 'react-router-dom';
 
 const Nav = ({ handleChange, handleSubmit }) => {
-  const [show, handleShow] = useState(false);
+  // const [show, handleShow] = useState(false);
 
   return (
-    <div className={`nav ${show && 'nav_black'}`}>
-      <Link to="/homePage/">
+    // <div className={`nav ${show && 'nav_black'}`}>
+    <div className={styles.nav}>
+      <Link to='/homePage'>
         <img
-          className='nav_logo'
+          className={styles.nav_logo}
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5uaj5DOEA_dE7pOGFOtlFWjSx7REGmeKbWA&usqp=CAU"
           alt="Perrito inicio"
         />
       </Link>
-      <div className='nav_links'>
-        <Link className='nav_link_to' to='/'> Inicio</Link>
-        <Link className='nav_link_to' to='/form'>Create</Link>
+      <div className={styles.nav_links}>
+        <Link className={styles.nav_link_to} to='/'> <button className={styles.link_button}> Landing </button></Link>
+        <Link className={styles.nav_link_to} to='/form'><button className={styles.link_button}> Create </button></Link>
       </div>
       <div>
-        <form onSubmit={handleSubmit} className='search_form'>
+        <form onSubmit={handleSubmit} className={styles.search_form}>
           <input
-            className='input_search'
+            className={styles.input_search}
             type="search"
-            placeholder='Search by name or Id'
+            placeholder='Search by name'
             onChange={handleChange}
           />
-          <button className='submit_button' type="submit">Search</button>
+          <button className={styles.search_button} type="submit">Search</button>
         </form>
       </div>
     </div>
