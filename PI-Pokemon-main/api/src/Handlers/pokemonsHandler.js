@@ -51,7 +51,7 @@ const getPokemonById = async(req, res)=>{
 //       const pokemonsId = await Pokemon.findByPk(id);
 //       return pokemonsId; 
 //     }
-  
+
 //     const apiResponse = (await axios.get("https://pokeapi.co/api/v2/pokemon?limit=200")).data.results;
 //     const pokeId = apiResponse.find((pokemon) => pokemon.url.endsWith(`/${id}/`));
 //     if(!pokeId) return ("Couldn't find any pokemon with the specified id");
