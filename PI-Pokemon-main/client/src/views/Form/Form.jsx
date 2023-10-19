@@ -108,6 +108,7 @@ const validation = (state, name) => {
     event.preventDefault();
 
     axios.post("http://localhost:3001/pokemons/", state)
+    // .then(res=>alert('Pokemons was creted'))
     .then(res=>alert(res))
     .catch(error=> error.message)
 

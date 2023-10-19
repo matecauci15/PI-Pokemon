@@ -3,17 +3,18 @@ import { GET_POKEMONS, GET_POKEMON_NAME, GET_TYPES, ORDER_BY_NAME, FILTER_BY_ORI
 const initialState = {
     allPokemons: [],
     pokemonsCopy: [],
-    allTypes: []
+    allTypes: [],
+    filteredPokemons: []
 }
 
 const rootReducer = (state = initialState, action) => {
     switch(action.type){
-            case GET_POKEMONS:
-                return {
-                    // devolvemos la copia para no pisar el estado
-                    ...state,
-                    allPokemons: action.payload,
-                    pokemonsCopy: action.payload
+        case GET_POKEMONS:
+            return {
+                // devolvemos la copia para no pisar el estado
+                ...state,
+                allPokemons: action.payload,
+                pokemonsCopy: action.payload
             }
             case GET_TYPES:
                 return {
@@ -37,6 +38,7 @@ const rootReducer = (state = initialState, action) => {
                     }
                     return 0;
                 });
+                  
                 return {
                     ...state,
                     allPokemons: sortedPokemons,
@@ -57,13 +59,33 @@ const rootReducer = (state = initialState, action) => {
             }; 
 
             case FILTER_BY_ORIGIN:
-                const createdFilter = action.payload === "created"
-                ? state.pokemonsCopy.filter((event) => event.createdInDb)
-                : state.pokemonsCopy.filter((event) => !event.createdInDb);
-            return {
-                ...state,
-                allPokemons: action.payload === "All" ? state.pokemonsCopy : createdFilter,
-            }
+                        const createdFilter = action.payload === "created"
+                        ? state.pokemonsCopy.filter((event) => event.createdInDb)
+                        : state.pokemonsCopy.filter((event) => !event.createdInDb);
+                return {
+                        ...state,
+                        allPokemons: action.payload === "All" ? state.pokemonsCopy : createdFilter,
+                    }
+
+                    // let breedsFromApiOrDbOrAll = [];
+                    // // Si la acción es 'all', selecciona todas las razas
+                    // if (action.payload === "All") {
+                    //   breedsFromApiOrDbOrAll = state.allPokemons;
+                    //   // Si la acción es 'db', selecciona solo las razas con ID de tipo 'string'
+                    // } else if (action.payload === "created") {
+                    //   breedsFromApiOrDbOrAll = state.allPokemons.filter(
+                    //     (e) => e.id.length > 5
+                    //   );
+                    //   // Si la acción es 'api', selecciona solo las razas con ID de tipo 'number'
+                    // } else if (action.payload === "api") {
+                    //   breedsFromApiOrDbOrAll = state.allPokemons.filter(
+                    //     (e) => typeof e.id === "number"
+                    //   );
+                    // }
+                    // return {
+                    //   ...state,
+                    //   allPokemons: breedsFromApiOrDbOrAll,
+                    // };
             case FILTER_BY_ATTACK:
                 let copy = state.allPokemons;
                 if (action.payload === 'descending') {

@@ -5,15 +5,20 @@ import React, { useState, useEffect } from "react"
 import Nav from '../../Components/NavBar/NavBar';
 // import getColorForType from '../../utils/colors';
 
+
 const Detail = () => {
   const {id} = useParams()
-
+  
   // global state = component subscribed to global state
   const [pokemon, setPokemon] = useState()
-
+  
   // const [pokemon, setPokemon] = useState();
   // const { name } = useParams();
 
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  
   useEffect(()=>{
     axios.get(`http://localhost:3001/pokemons/${id}`)
     .then(({ data }) => {
@@ -46,7 +51,7 @@ const Detail = () => {
             alt={pokemon.name}
             />
         <div className={styles.other_details}>
-          <h2 className={styles.detail_titlte}>{pokemon?.name}</h2>
+          <h2 className={styles.detail_titlte}>{capitalizeFirstLetter(pokemon?.name)}</h2>
           <p className={styles.detail_data}>Hp | {pokemon?.hp}</p>
           <p className={styles.detail_data}>Height | {pokemon?.height}cm</p>
           <p className={styles.detail_data}>Weight | {pokemon?.weight}kg</p>

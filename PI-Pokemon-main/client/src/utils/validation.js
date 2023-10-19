@@ -1,5 +1,6 @@
 const validateName = (name) => {
     if (name === '') return 'Complete name';
+    if (name.length > 30) return 'Name con not be more than 30 characters'
     if (!/^[a-zA-Z\s]+$/.test(name)) return 'Name can not contain special characters';
     return '';
   };
@@ -14,7 +15,9 @@ const validateName = (name) => {
   const validateNumber = (value, fieldName) => {
     if (value === '') return `Complete with a number for ${fieldName}`;
     if (isNaN(parseInt(value))) return `${fieldName} must be a number`;
-    if (!/^[0-9]{1,3}$/.test(value)) return `${fieldName} must be between 0-999`;
+    if (value < 1) return `${fieldName} must be greater than 0`;
+    // if (!/^[0-9]{1,3}$/.test(value)) return `${fieldName} must be between 0-999`;
+    if (!/^(?:[1-9][0-9]{0,2}|[1-9])$/.test(value)) return `${fieldName} must be between 1-999`;
     return '';
   };
   

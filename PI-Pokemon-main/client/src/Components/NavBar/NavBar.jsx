@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './NavBar.module.css';
 import { Link } from 'react-router-dom';
 
-const Nav = ({ handleChange, handleSubmit }) => {
+const Nav = ({ handleChange, handleSubmit, handleClick, handleClearSearch }) => {
   // const [show, handleShow] = useState(false);
 
   return (
@@ -11,9 +11,10 @@ const Nav = ({ handleChange, handleSubmit }) => {
     <div className={styles.nav}>
       <Link to='/homePage'>
         <img
+          onClick={handleClick}
           className={styles.nav_logo}
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5uaj5DOEA_dE7pOGFOtlFWjSx7REGmeKbWA&usqp=CAU"
-          alt="Perrito inicio"
+          alt="Pokemons inicio"
         />
       </Link>
       <div className={styles.nav_links}>
@@ -27,6 +28,7 @@ const Nav = ({ handleChange, handleSubmit }) => {
             type="search"
             placeholder='Search by name'
             onChange={handleChange}
+            onClick={handleClearSearch}
           />
           <button className={styles.search_button} type="submit">Search</button>
         </form>

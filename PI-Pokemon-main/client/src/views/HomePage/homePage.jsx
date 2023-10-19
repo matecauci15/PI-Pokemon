@@ -23,7 +23,11 @@ const HomePage = () => {
     dispatch(getPokemon())
   },[dispatch])
   
-  
+  function handleClick (event){
+    event.preventDefault()
+    dispatch(getPokemon())
+  }
+
   function handleChange(event) {
     event.preventDefault()
     setSearchPokemon(event.target.value)
@@ -46,28 +50,34 @@ const HomePage = () => {
   // funcion para manejar el cambio de ORDEN A-Z Z-A
   const handleOrderChange = (event) => {
     event.preventDefault();
-    const order = event.target.value; // 'AA' para ascendente, 'ZA' para descendente
-    dispatch(orderByName(order)); // llama a la accion para ordenar los pokemons
+    const {value} = event.target; // 'AA' para ascendente, 'ZA' para descendente
+    dispatch(orderByName(value)); // llama a la accion para ordenar los pokemons
   };
   
   // filtrado por Origen
   const handleOriginFilter = (event)=>{
     event.preventDefault()
-    const {value} = event.target;
-    dispatch(filterByOrigin(value))
+    const origin = event.target.value;
+    dispatch(filterByOrigin(origin))
 }
   
   // Filtrado por TYPE
   const handleTypeChange = (event) => {
+    event.preventDefault()
     const {value} = event.target;
     dispatch(filterByType(value)); // llama a la accion para filtrar los pokemon por tipo
   };
   
   
   //Filtrado por Ataque
-  const handlerFilterAtack = (event)=> {
-    const {value} = event.target;
-    dispatch(filterByAttack(value)) 
+  const handlerFilterAtack = (event) => {
+    event.preventDefault()
+    const { value } = event.target;
+    if (value === "All") {
+      dispatch(getPokemon());
+    } else {
+      dispatch(filterByAttack(value));
+    }
   }
   
   const handleClearFilters = (event) => {
@@ -105,7 +115,7 @@ const HomePage = () => {
   return (
     <>
       <div>
-      <NavBar handleChange={handleChange} handleSubmit={handleSubmit} handleClearSearch={handleClearSearch}/>
+      <NavBar handleChange={handleChange} handleClick={handleClick} handleSubmit={handleSubmit} handleClearSearch={handleClearSearch}/>
       </div>
 
       <div className={styles.filters}>
