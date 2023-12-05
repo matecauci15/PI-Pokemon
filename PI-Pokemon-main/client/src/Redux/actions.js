@@ -1,8 +1,6 @@
 import axios from "axios"
-import { GET_POKEMONS, GET_TYPES, GET_POKEMON_NAME, ORDER_BY_NAME, FILTER_BY_ORIGIN, FILTER_BY_TYPE, FILTER_BY_ATTACK } from "./actionsTypes";
+import { GET_POKEMONS, GET_TYPES, GET_POKEMON_NAME, ORDER_BY_NAME, FILTER_BY_ORIGIN, FILTER_BY_TYPE, FILTER_BY_ATTACK, RESET_FILTERS, SELECET_ATTACK, SELECET_ORDER, SELECET_ORIGIN, SELECET_TYPE } from "./actionsTypes";
 
-// state pq quiero que reciba la info del form
-//dispatch conecta el componente con laas actions, lleva la info del componente al action y del action al reducer
 export function postPokemon(state){
     return async function(dispatch){
         try {
@@ -67,15 +65,20 @@ export const filterByType = (type) => {
     };
   };
 
-  export const filterByOrigin = (payload)=>{
+export const filterByOrigin = (payload)=>{
     return {
         type: FILTER_BY_ORIGIN,
         payload,
       };
     };
-    export const filterByAttack = (filter)=>{
+export const filterByAttack = (filter)=>{
         return{
             type: FILTER_BY_ATTACK,
             payload: filter
         }
     } 
+export function resetFilters() {
+        return {
+          type: RESET_FILTERS,
+        };
+      }

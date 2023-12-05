@@ -2,23 +2,21 @@ import NavBar from '../../Components/NavBar/NavBar';
 import React, {useEffect, useState } from 'react';
 import styles from './HomePage.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterByAttack, filterByOrigin, filterByType, getPokemon, getPokemonByName, getTypes, orderByName } from '../../Redux/actions';
+import { filterByAttack, filterByOrigin, filterByType, getPokemon, getPokemonByName, getTypes, orderByName, resetFilters } from '../../Redux/actions';
 import Cards from '../../Components/Cards/Cards';
 // import getColorForType from '../../utils/colors'
 // import Footer from '../Footer/Footer';
 
 const HomePage = () => {
   const dispatch = useDispatch()
-  // global state = component subscribed to global state
   const allPokemons = useSelector(state => state.allPokemons)
-  // const pokemonsCopy = useSelector((state) => state.pokemonsCopy); //  copia lista de pokemon ordenada
+  // const pokemonsCopy = useSelector((state) => state.pokemonsCopy);
   
   const allTypes = useSelector(state => state.allTypes)
   
   const [searchPokemon, setSearchPokemon] = useState("")
   
   useEffect(() => {
-    // when page render will send the action and modify the state
     dispatch(getTypes());
     dispatch(getPokemon())
   },[dispatch])
@@ -42,34 +40,30 @@ const HomePage = () => {
     }
   }
   function handleClearSearch() {
-    setSearchPokemon(""); // establece el valor de busqueda en una cadena vacia
-    dispatch(getPokemon(allPokemons)); // muestra todos los pokemon
+    setSearchPokemon(""); 
+    dispatch(getPokemon(allPokemons)); 
   }
 
   
-  // funcion para manejar el cambio de ORDEN A-Z Z-A
   const handleOrderChange = (event) => {
     event.preventDefault();
-    const {value} = event.target; // 'AA' para ascendente, 'ZA' para descendente
-    dispatch(orderByName(value)); // llama a la accion para ordenar los pokemons
+    const {value} = event.target; 
+    dispatch(orderByName(value)); 
   };
   
-  // filtrado por Origen
+  
   const handleOriginFilter = (event)=>{
     event.preventDefault()
     const origin = event.target.value;
     dispatch(filterByOrigin(origin))
 }
   
-  // Filtrado por TYPE
   const handleTypeChange = (event) => {
     event.preventDefault()
     const {value} = event.target;
-    dispatch(filterByType(value)); // llama a la accion para filtrar los pokemon por tipo
+    dispatch(filterByType(value)); 
   };
   
-  
-  //Filtrado por Ataque
   const handlerFilterAtack = (event) => {
     event.preventDefault()
     const { value } = event.target;
@@ -80,11 +74,11 @@ const HomePage = () => {
     }
   }
   
-  const handleClearFilters = (event) => {
-    if(event.target.value === "All"){
-      dispatch(getPokemon())
-    }
+  const handleClearFilters = () => {
+    dispatch(resetFilters())
+    dispatch(getPokemon())
   }
+
   // Paginado
   const [currentPage, setCurrentPage] = useState(1);
   const [pokemonsPerPage] = useState(12);
@@ -99,7 +93,6 @@ const HomePage = () => {
 
 
   const nextHandler = () => {
-    // verificamos si estamos en la última pagina, para no avanzar mas
     if (indexOfFirstPokemon + pokemonsPerPage >= allPokemons.length) {
       return;
     }
@@ -147,6 +140,14 @@ const HomePage = () => {
       </select>
     </div>
       </div>
+      <button onClick={handleClearFilters}>
+          <img
+            width="24"
+            height="24"
+            src="https://img.icons8.com/color/48/broom.png"
+            alt="broom"
+          />
+        </button>
 
     <div className={styles.home_cards}> 
         <Cards allPokemons={currentPokemons} />
