@@ -13,13 +13,28 @@ const HomePage = () => {
   // const pokemonsCopy = useSelector((state) => state.pokemonsCopy);
   
   const allTypes = useSelector(state => state.allTypes)
-  
+  const [filters, setFilters] = useState({
+    type: 'All',
+    origin: 'All',
+    attack: 'All',
+  });
   const [searchPokemon, setSearchPokemon] = useState("")
   
   useEffect(() => {
     dispatch(getTypes());
     dispatch(getPokemon())
   },[dispatch])
+
+  useEffect(() => {
+    dispatch(filterByType(filters.type));
+    dispatch(filterByOrigin(filters.origin));
+    dispatch(filterByAttack(filters.attack));
+  }, [dispatch, filters]);
+
+  useEffect(() => {
+    dispatch(orderByName(filters.order));
+  }, [dispatch, filters.order]);
+
   
   function handleClick (event){
     event.preventDefault()

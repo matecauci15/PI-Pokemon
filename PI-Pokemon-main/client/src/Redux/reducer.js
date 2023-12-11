@@ -1,9 +1,10 @@
-import { GET_POKEMONS, GET_POKEMON_NAME, GET_TYPES, ORDER_BY_NAME, FILTER_BY_ORIGIN, FILTER_BY_TYPE, FILTER_BY_ATTACK, RESET_FILTERS, SELECET_ATTACK, SELECET_ORDER, SELECET_ORIGIN, SELECET_TYPE } from "./actionsTypes"
+import { GET_POKEMONS, GET_POKEMON_NAME, GET_TYPES, ORDER_BY_NAME, FILTER_BY_ORIGIN, FILTER_BY_TYPE, FILTER_BY_ATTACK, RESET_FILTERS } from "./actionsTypes"
 
 const initialState = {
     allPokemons: [],
     pokemonsCopy: [],
     allTypes: [],
+    allTypesCopy: [],
     filteredPokemons: [],
     selectedType: "",
     selectedFilteredAttack: "",
@@ -13,15 +14,17 @@ const initialState = {
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_POKEMONS:
-      return {
-        ...state,
-        allPokemons: action.payload,
-        pokemonsCopy: action.payload,
-      };
+        return {
+            ...state,
+            allPokemons: action.payload,
+            pokemonsCopy: action.payload,
+        };
+    
     case GET_TYPES:
       return {
         ...state,
         allTypes: action.payload,
+        allTypesCopy: action.payload,
       };
     case GET_POKEMON_NAME:
       return {
@@ -30,21 +33,21 @@ const rootReducer = (state = initialState, action) => {
         pokemonsCopy: action.payload,
       };
 
-    case ORDER_BY_NAME:
-      const sortedPokemons = state.pokemonsCopy.slice().sort((a, b) => {
-        if (action.payload === "AA") {
-          return a.name.localeCompare(b.name);
-        } else if (action.payload === "ZA") {
-          return b.name.localeCompare(a.name);
-        }
-        return 0;
-      });
-
-      return {
-        ...state,
-        allPokemons: sortedPokemons,
-      };
-
+      case ORDER_BY_NAME:
+        const sortedPokemons = state.pokemonsCopy.slice().sort((a, b) => {
+          if (action.payload === "AA") {
+            return a.name.localeCompare(b.name);
+          } else if (action.payload === "ZA") {
+            return b.name.localeCompare(a.name);
+          }
+          return 0;
+        });
+      
+        return {
+          ...state,
+          allPokemons: [...sortedPokemons],  
+        };
+      
     case FILTER_BY_TYPE:
       let filterType;
       if (action.payload === "All") {

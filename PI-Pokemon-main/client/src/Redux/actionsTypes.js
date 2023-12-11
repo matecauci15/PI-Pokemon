@@ -2,15 +2,22 @@ export const GET_POKEMONS = "GET_POKEMONS"
 export const GET_POKEMON = "GET_POKEMON"
 export const GET_TYPES = "GET_TYPES"
 export const GET_POKEMON_NAME = "GET_POKEMON_NAME"
+export const DELETE_POKEMON = "DELETE_POKEMON"
+
 export const ORDER_BY_NAME = "ORDER_BY_NAME"
 export const FILTER_BY_ORIGIN = "FILTER_BY_ORIGIN"
 export const FILTER_BY_TYPE = "FILTER_BY_TYPE"
 export const FILTER_BY_ATTACK = "FILTER_BY_ATTACK"
-export const DELETE_POKEMON = "DELETE_POKEMON"
 
-export const SELECET_ORDER= "SELECET_ORDER"
-export const SELECET_ORIGIN = "SELECET_ORIGIN"
-export const SELECET_TYPE = "SELECET_TYPE"
-export const SELECET_ATTACK = "SELECET_ATTACK"
+// export const GET_POST_BY_ORDER = "GET_POST_BY_ORDER"
+// export const GET_POST_BY_ORIGIN = "GET_POST_BY_ORIGIN"
+// export const GET_POST_BY_TYPE = "GET_POST_BY_TYPE"
+// export const GET_POST_BY_ATTACK = "GET_POST_BY_ATTACK"
+
+// export const SELECT_ORDER= "SELECT_ORDER"
+// export const SELECT_ORIGIN = "SELECT_ORIGIN"
+// export const SELECT_TYPE = "SELECT_TYPE"
+// export const SELECT_ATTACK = "SELECT_ATTACK"
+
 export const RESET_FILTERS = "RESET_FILTERS"
 
