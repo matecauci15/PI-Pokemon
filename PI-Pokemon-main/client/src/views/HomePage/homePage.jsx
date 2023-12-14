@@ -13,11 +13,11 @@ const HomePage = () => {
   // const pokemonsCopy = useSelector((state) => state.pokemonsCopy);
   
   const allTypes = useSelector(state => state.allTypes)
-  const [filters, setFilters] = useState({
-    type: 'All',
-    origin: 'All',
-    attack: 'All',
-  });
+  // const [filters, setFilters] = useState({
+  //   type: 'All',
+  //   origin: 'All',
+  //   attack: 'All',
+  // });
   const [searchPokemon, setSearchPokemon] = useState("")
   
   useEffect(() => {
@@ -25,15 +25,15 @@ const HomePage = () => {
     dispatch(getPokemon())
   },[dispatch])
 
-  useEffect(() => {
-    dispatch(filterByType(filters.type));
-    dispatch(filterByOrigin(filters.origin));
-    dispatch(filterByAttack(filters.attack));
-  }, [dispatch, filters]);
+  // useEffect(() => {
+  //   dispatch(filterByType(filters.type));
+  //   dispatch(filterByOrigin(filters.origin));
+  //   dispatch(filterByAttack(filters.attack));
+  // }, [dispatch, filters]);
 
-  useEffect(() => {
-    dispatch(orderByName(filters.order));
-  }, [dispatch, filters.order]);
+  // useEffect(() => {
+  //   dispatch(orderByName(filters.order));
+  // }, [dispatch, filters.order]);
 
   
   function handleClick (event){
@@ -150,8 +150,8 @@ const HomePage = () => {
     <div>
       <select className={styles.filter_types} name='attack' onChange={handlerFilterAtack} handleClearFilters={handleClearFilters}>
         <option value="All">Attack</option>
-        <option value="ascending">Ascending (A-Z)</option>
-        <option value="descending">Descending (Z-A)</option>
+        <option value="ascending">Ascending</option>
+        <option value="descending">Descending</option>
       </select>
     </div>
       </div>

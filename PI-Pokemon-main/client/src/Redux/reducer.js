@@ -63,35 +63,33 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case FILTER_BY_ORIGIN:
-      const createdFilter =
-        action.payload === "created"
-          ? state.pokemonsCopy.filter((event) => event.createdInDb)
-          : state.pokemonsCopy.filter((event) => !event.createdInDb);
-      return {
-        ...state,
-        allPokemons:
-          action.payload === "All" ? state.pokemonsCopy : createdFilter,
-      };
+      // const createdFilter =
+      //   action.payload === "created"
+      //     ? state.pokemonsCopy.filter((event) => event.createdInDb)
+      //     : state.pokemonsCopy.filter((event) => !event.createdInDb);
+      // return {
+      //   ...state,
+      //   allPokemons:
+      //     action.payload === "All" ? state.pokemonsCopy : createdFilter,
+      // };
 
-    // let breedsFromApiOrDbOrAll = [];
-    // // Si la acción es 'all', selecciona todas las razas
-    // if (action.payload === "All") {
-    //   breedsFromApiOrDbOrAll = state.allPokemons;
-    //   // Si la acción es 'db', selecciona solo las razas con ID de tipo 'string'
-    // } else if (action.payload === "created") {
-    //   breedsFromApiOrDbOrAll = state.allPokemons.filter(
-    //     (e) => e.id.length > 5
-    //   );
-    //   // Si la acción es 'api', selecciona solo las razas con ID de tipo 'number'
-    // } else if (action.payload === "api") {
-    //   breedsFromApiOrDbOrAll = state.allPokemons.filter(
-    //     (e) => typeof e.id === "number"
-    //   );
-    // }
-    // return {
-    //   ...state,
-    //   allPokemons: breedsFromApiOrDbOrAll,
-    // };
+    let pokeApiOrDb = [];
+    if (action.payload === "All") {
+      pokeApiOrDb = state.allPokemons;
+    } else if (action.payload === "created") {
+      pokeApiOrDb = state.allPokemons.filter(
+        (event) => event.id.length > 5
+        );
+    } else if (action.payload === "api") {
+      pokeApiOrDb = state.allPokemons.filter(
+        (event) => typeof event.id === "number"
+      );
+    }
+    return {
+      ...state,
+      allPokemons: pokeApiOrDb, 
+    };
+
     case FILTER_BY_ATTACK:
       let copy = state.allPokemons;
       if (action.payload === "descending") {
@@ -101,14 +99,20 @@ const rootReducer = (state = initialState, action) => {
             .sort((a, b) => b.attack - a.attack)
             .map((poke) => poke),
         };
-      } else {
+      } else if (action.payload === "ascending"){
         return {
           ...state,
           allPokemons: copy
             .sort((a, b) => a.attack - b.attack)
             .map((poke) => poke),
         };
+      }else {
+        return {
+          ...state,
+          allPokemons: state.allPokemons
+        }
       }
+
     case RESET_FILTERS:
       return {
         ...state,
